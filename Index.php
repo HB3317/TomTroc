@@ -7,79 +7,36 @@ require_once 'config/autoload.php';
 // Si aucune action n'est demandée, on affiche la page d'accueil.
 $action = Utils::request('action', 'home');
 
-// Try catch global pour gérer les erreurs
+//Déclaration des routes
+$routes = [
+    'home'          => [HomeController::class,      'showHome'],
+
+    'books'         => [BookController::class,      'showBooks'],
+    'bookDetails'   => [BookController::class,      'showBookDetails'],
+    'createBook'    => [BookController::class,      'createBook'],
+    'editBook'      => [BookController::class,      'editBook'],
+    'deleteBook'    => [BookController::class,      'deleteBook'],
+
+    'login'         => [UserController::class,      'displayConnectionForm'],
+    'logout'        => [UserController::class,      'logout'],
+    'register'      => [UserController::class,      'displayRegistrationForm'],
+    'myAccount'     => [UserController::class,      'showMyAccount'],
+    'userProfile'   => [UserController::class,      'showUserProfile'],
+
+    'chat'          => [MessageController::class,   'showChat'],
+    'sendMessage'   => [MessageController::class,   'sendMessage'],
+];
+
+// Si l'action existe dans les routes, on appelle le contrôleur et la méthode associés.
+// Sinon, on affiche une page d'erreur.
 try {
-    // Pour chaque action, on appelle le bon contrôleur et la bonne méthode.
-    switch ($action) {
-        // Pages accessibles à tous.
-        case 'home':
-            $homeController = new HomeController();
-            $homeController->showHome();
-            break;
-
-        case 'books':
-            $bookController = new BookController();
-            $bookController->showBooks();
-            break;
-        
-        case 'bookDetails': 
-            $bookController = new BookController();
-            $bookController->showBookDetails();
-            break;
-
-        case 'createBook':
-            $bookController = new BookController();
-            $bookController->createBook();
-            break;
-
-        case 'editBook':
-            $bookController = new BookController();
-            $bookController->editBook();
-            break;
- 
-        case 'deleteBook': 
-            $bookController = new BookController();
-            $bookController->deleteBook();
-            break;
-
-        case 'login':
-            $userController = new UserController();
-            $userController->displayConnectionForm();
-            break;
-
-        case 'logout': 
-            $userController = new UserController();
-            $userController->logout();
-            break;
-
-        case 'register':
-            $userController = new UserController();
-            $userController->displayRegistrationForm();
-            break;
-
-        case 'myAccount':
-            $userController = new UserController();
-            $userController->showMyAccount();
-            break;
-
-        case 'userProfile':
-            $userController = new UserController();
-            $userController->showUserProfile();
-            break;
-
-        case 'chat': 
-            $messageController = new MessageController();
-            $messageController->showChat();
-            break;
-
-        case 'sendMessage':
-            $messageController = new MessageController();
-            $messageController->sendMessage();
-            break;
-
-        default:
-            throw new Exception("La page demandée n'existe pas.");
+    if (!isset($routes[$action])) {
+        throw new Exception("La page demandée n'existe pas.");
     }
+    [$controllerName, $methodName] = $routes[$action];
+
+    $controller = new $controllerName();
+    $controller->$methodName();
 } catch (Exception $e) {
     $errorView = new View('Erreur');
     $errorView->render('errorPage', ['errorMessage' => $e->getMessage()]);

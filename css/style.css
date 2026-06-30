@@ -1,0 +1,69 @@
+:root {
+    --background-color: #F5F3EF;
+    --background-secondary-color: #FAF9F7;
+    --highlight-color: #FFFFFF;
+    --main-text-color: #000000;
+    --secondary-text-color: #A6A6A6;
+    --primary-color: #00AC66;
+    --dark-text-color: #292929;
+    --available-color: #6DC5A1;
+    --unavailable-color: #C56D6D;
+    --delete-color: #CB2D2D;
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+header {
+    background-color: var(--background-color);
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-color);
+    color: var(--dark-text-color);
+    font-family: 'Inter', sans-serif;
+}
+
+main {
+    flex: 1;
+}
+
+.mainMenu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.mainMenu-left,
+.mainMenu-right {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.footerMenu a ,
+.mainMenu a {
+    text-decoration: none;
+    color: var(--dark-text-color);
+}
+
+footer {
+    background-color: var(--highlight-color);
+}
+
+.footerMenu {
+    display: flex;
+    justify-content: flex-end;
+    gap: 60px;
+    padding: 20px 0;
+    margin-right: 20px;
+}
