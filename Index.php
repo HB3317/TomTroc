@@ -9,22 +9,23 @@ $action = Utils::request('action', 'home');
 
 //Déclaration des routes
 $routes = [
-    'home'          => [HomeController::class,      'showHome'],
+    'home'              => [HomeController::class,      'showHome'],
 
-    'books'         => [BookController::class,      'showBooks'],
-    'bookDetails'   => [BookController::class,      'showBookDetails'],
-    'createBook'    => [BookController::class,      'createBook'],
-    'editBook'      => [BookController::class,      'editBook'],
-    'deleteBook'    => [BookController::class,      'deleteBook'],
+    'books'             => [BookController::class,      'showBooks'],
+    'bookDetails'       => [BookController::class,      'showBookDetails'],
+    'createBook'        => [BookController::class,      'createBook'],
+    'editBook'          => [BookController::class,      'editBook'],
+    'deleteBook'        => [BookController::class,      'deleteBook'],
 
-    'login'         => [UserController::class,      'displayConnectionForm'],
-    'logout'        => [UserController::class,      'logout'],
-    'register'      => [UserController::class,      'displayRegistrationForm'],
-    'myAccount'     => [UserController::class,      'showMyAccount'],
-    'userProfile'   => [UserController::class,      'showUserProfile'],
+    'login'             => [UserController::class,      'displayConnectionForm'],
+    'logout'            => [UserController::class,      'logout'],
+    'register'          => [UserController::class,      'displayRegistrationForm'],
+    'myAccount'         => [UserController::class,      'showMyAccount'],
+    'userProfile'       => [UserController::class,      'showUserProfile'],
 
-    'chat'          => [MessageController::class,   'showChat'],
-    'sendMessage'   => [MessageController::class,   'sendMessage'],
+    'chat'              => [MessageController::class,   'showChat'],
+    'sendMessage'       => [MessageController::class,   'sendMessage'],
+    'showConversation'  => [MessageController::class,   'showConversation'],
 ];
 
 // Si l'action existe dans les routes, on appelle le contrôleur et la méthode associés.
