@@ -27,4 +27,14 @@ class MessageManager extends AbstractEntityManager
         }
         return $messages;
     }
+    
+    public function markAsRead(int $id): void
+    {
+        $sql = "UPDATE messages 
+                SET is_read = 1 
+                WHERE id = :id
+                AND is_read = 0";
+
+        $this->db->query($sql, ['id' => $id]);
+    }
 }
