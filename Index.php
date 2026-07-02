@@ -10,19 +10,18 @@ $action = Utils::request('action', 'home');
 //Déclaration des routes
 $routes = [
     'home'              => [HomeController::class,      'showHome'],
-
     'books'             => [BookController::class,      'showBooks'],
     'bookDetails'       => [BookController::class,      'showBookDetails'],
     'createBook'        => [BookController::class,      'createBook'],
     'editBook'          => [BookController::class,      'editBook'],
     'deleteBook'        => [BookController::class,      'deleteBook'],
-
-    'login'             => [UserController::class,      'displayConnectionForm'],
+    'loginForm'         => [UserController::class,      'loginForm'],
     'logout'            => [UserController::class,      'logout'],
-    'register'          => [UserController::class,      'displayRegistrationForm'],
-    'myAccount'         => [UserController::class,      'showMyAccount'],
-    'userProfile'       => [UserController::class,      'showUserProfile'],
-
+    'registerForm'      => [UserController::class,      'registerForm'],
+    'myAccount'         => [UserController::class,      'myAccount'],
+    'userProfile'       => [UserController::class,      'userProfile'],
+    'login'             => [UserController::class,      'login'],
+    'register'          => [UserController::class,      'register'],
     'chat'              => [MessageController::class,   'showChat'],
     'sendMessage'       => [MessageController::class,   'sendMessage'],
     'showConversation'  => [MessageController::class,   'showConversation'],
@@ -34,8 +33,8 @@ try {
     if (!isset($routes[$action])) {
         throw new Exception("La page demandée n'existe pas.");
     }
-    [$controllerName, $methodName] = $routes[$action];
-
+    $controllerName = $routes[$action][0];
+    $methodName = $routes[$action][1];
     $controller = new $controllerName();
     $controller->$methodName();
 } catch (Exception $e) {
