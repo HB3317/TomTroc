@@ -23,6 +23,8 @@ header {
 
 body {
     min-height: 100vh;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     background-color: var(--background-color);
@@ -44,10 +46,19 @@ main {
 
 .mainMenu-left,
 .mainMenu-right {
+    width: 50%;
     display: flex;
     align-items: center;
     gap: 60px;
-    margin-left: 20px;
+}
+
+.mainMenu-left {
+    justify-content: flex-start;
+    margin-left: 70px;
+}
+
+.mainMenu-right {
+    justify-content: flex-end;
     margin-right: 20px;
 }
 
@@ -58,6 +69,7 @@ main {
 }
 
 footer {
+    width:100%;
     background-color: var(--highlight-color);
 }
 

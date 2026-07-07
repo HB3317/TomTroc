@@ -2,8 +2,6 @@
 class User
 {
     private int $id;
-    private string $firstName;
-    private string $lastName;
     private string $nickname;
     private string $email;
     private string $passwordHash;
@@ -12,8 +10,6 @@ class User
     public function __construct(array $data)
     {
         $this->id = (int)$data['id'];
-        $this->firstName = $data['first_name'];
-        $this->lastName = $data['last_name'];
         $this->nickname = $data['nickname'];
         $this->email = $data['email'];
         $this->passwordHash = $data['password_hash'];
@@ -23,16 +19,6 @@ class User
     public function getId(): int
     {
         return $this->id;
-    }
-
-    public function getFirstName(): string
-    {
-        return $this->firstName;
-    }
-
-    public function getLastName(): string
-    {
-        return $this->lastName;
     }
 
     public function getNickname(): string

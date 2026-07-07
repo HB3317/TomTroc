@@ -1,4 +1,4 @@
-.registerView {
+.loginView {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -7,11 +7,11 @@
     background-color: var(--background-secondary-color);
 }
 
-.registerInfo,
-.registerImage {
+.loginInfo,
+.loginImage {
     width: 50%;
 }
-.registerInfo {
+.loginInfo {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -28,7 +28,7 @@
     align-items: left;
 }
 
-.registerImage img {
+.loginImage img {
     width: 100%;
     height: auto;
 }
