@@ -7,7 +7,7 @@ class Book
     private string $author;
     private string $image;
     private string $description;
-    private string $status;
+    private bool $status;
 
     public function __construct(array $data)
     {
@@ -17,7 +17,7 @@ class Book
         $this->author = $data['author'];
         $this->image = $data['image'];
         $this->description = $data['description'];
-        $this->status = $data['status'];
+        $this->status = (bool)$data['status'];
     }
 
     public function getId(): int
@@ -50,7 +50,7 @@ class Book
         return $this->description;
     }
 
-    public function getStatus(): string
+    public function getStatus(): bool
     {
         return $this->status;
     }

@@ -4,7 +4,7 @@ class UserController
     public function loginForm(): void
     {
         $view = new View("Connexion");
-        $view->render('login');
+        $view->render('loginForm');
     }
 
     public function login(): void
@@ -43,7 +43,7 @@ class UserController
     public function registerForm(): void
     {
         $view = new View("Inscription");
-        $view->render('register');
+        $view->render('registerForm');
     }
 
     public function register(): void
@@ -83,16 +83,24 @@ class UserController
         }
 
         $userId = $_SESSION['user_id'];
+
         $userManager = new UserManager();
+        $bookManager = new BookManager();
+
         $user = $userManager->getUserById($userId);
 
         if ($user === null) {
             throw new Exception("Utilisateur non trouvé.");
         }
 
+        $userBooks = $bookManager->getBooksByUserId($userId);
+        $booksOwnedCount = count($userBooks);
+
         $view = new View("Mon compte");
         $view->render('myAccount', [
-            'user' => $user
+            'user' => $user,
+            'booksOwnedCount' => $booksOwnedCount,
+            'userBooks' => $userBooks
         ]);
     }
 

@@ -6,6 +6,7 @@ class User
     private string $email;
     private string $passwordHash;
     private ?string $image;
+    private string $registrationDate;
 
     public function __construct(array $data)
     {
@@ -14,6 +15,7 @@ class User
         $this->email = $data['email'];
         $this->passwordHash = $data['password_hash'];
         $this->image = $data['image'];
+        $this->registrationDate = $data['registration_date'];
     }
 
     public function getId(): int
@@ -39,5 +41,18 @@ class User
     public function getImage(): ?string
     {
         return $this->image;
+    }
+
+    public function getRegistrationDate(): string
+    {
+        return $this->registrationDate;
+    }
+    
+    public function getRegisteredSince(): int
+    {
+        $registrationDate = new DateTime($this->getRegistrationDate());
+        $today = new DateTime();
+        $registeredSince =  $today ->diff($registrationDate);
+        return $registeredSince->y;
     }
 }

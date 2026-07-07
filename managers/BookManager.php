@@ -69,4 +69,23 @@ class BookManager extends AbstractEntityManager
         $sql = "DELETE FROM books WHERE id = :id";
         $this->db->query($sql, ['id' => $id]);
     }
+
+    public function getBooksByUserId(int $userId) : array
+    {
+        $sql = "SELECT * FROM books WHERE user_id = :user_id";
+        $result = $this->db->query($sql, ['user_id' => $userId]);
+        $books = [];
+
+        while ($book = $result->fetch()) {
+            $books[] = new Book($book);
+        }
+        return $books;
+    }
+
+    public function getBooksCountByUserId(int $userId) : int
+    {
+        $sql = "SELECT COUNT(*) FROM books WHERE user_id = :user_id";
+        $result = $this->db->query($sql, ['user_id' => $userId]);
+        return (int)$result->fetchColumn();
+    }
 }

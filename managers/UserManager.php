@@ -42,11 +42,12 @@ class UserManager extends AbstractEntityManager
 
     public function createUser(string $nickname, string $email, string $passwordHash): void
     {
-        $sql = "INSERT INTO users (nickname, email, password_hash) VALUES (:nickname, :email, :password_hash)";
+        $sql = "INSERT INTO users (nickname, email, password_hash, registration_date) VALUES (:nickname, :email, :password_hash, :registration_date)";
         $this->db->query($sql, [
             'nickname' => $nickname,
             'email' => $email,
-            'password_hash' => $passwordHash
+            'password_hash' => $passwordHash,
+            'registration_date' => date('Y-m-d')
         ]);
     }
 }
