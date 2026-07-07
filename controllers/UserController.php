@@ -34,6 +34,7 @@ class UserController
 
     public function logout(): void
     {
+        $_SESSION = [];
         session_destroy();
         header("Location: index.php?action=loginForm");
         exit();
@@ -47,33 +48,28 @@ class UserController
 
     public function register(): void
     {
-        $firstName = trim(Utils::request('firstName')??'');
-        $lastName = trim(Utils::request('lastName')??'');
         $nickname = trim(Utils::request('nickname')??'');
         $email = trim(Utils::request('email')??'');
         $password = (Utils::request('password')??'');
-        $confirmPassword = (Utils::request('confirmPassword')??'');
-        $image = Utils::request('image');
 
-        if ($firstName === '' || $lastName === '' || $nickname === '' || $email === '' || $password === '' || $confirmPassword === '') {
-            throw new Exception("Tous les champs sont requis pour s'inscrire, l'image reste optionnelle.");
+        if ($nickname === '' || $email === '' || $password === '') {
+            throw new Exception("Tous les champs sont requis pour s'inscrire.");
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new Exception("L'adresse email n'est pas valide.");
         }
 
-        if ($password !== $confirmPassword) {
-            throw new Exception("Les mots de passe ne correspondent pas.");
-        }
-
         $userManager = new UserManager();
         if ($userManager->getUserByEmail($email) !== null) {
             throw new Exception("Un utilisateur avec cet email existe déjà.");
         }
+        if ($userManager->getUserByNickname($nickname) !== null) {
+            throw new Exception("Un utilisateur avec ce pseudo existe déjà.");
+        }
 
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-        $userManager->createUser($firstName, $lastName, $nickname, $email, $passwordHash, $image);
+        $userManager->createUser($nickname, $email, $passwordHash);
 
         header("Location: index.php?action=loginForm");
         exit();

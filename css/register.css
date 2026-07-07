@@ -1,0 +1,67 @@
+.registerView {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    background-color: var(--background-secondary-color);
+}
+
+.registerInfo,
+.registerImage {
+    width: 50%;
+}
+.registerInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 60%;
+    padding: 20px;
+    margin-right: 10%;
+}
+
+.formGrid {
+    display :flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+}
+
+.registerImage img {
+    width: 100%;
+    height: auto;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: 700;
+    font-family: "Playfair Display", sans-serif;
+    margin-bottom: 70px;
+}
+
+label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: var(--secondary-text-color);
+}
+
+input {
+    margin-bottom: 50px;
+    border:solid 1px var(--border-color);
+    border-radius: 5px;
+    min-width: 300px;
+    min-height: 50px;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: var(--highlight-color);
+    border: none;
+    border-radius: 5px;
+    min-height: 70px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 70px;
+}
