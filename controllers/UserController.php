@@ -124,4 +124,54 @@ class UserController
             'user' => $user
         ]);
     }
+
+    public function modifyUser(): void
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: index.php?action=loginForm");
+            exit();
+        }
+
+        $userId = $_SESSION['user_id'];
+        $email = trim(Utils::request('email')??'');
+        $password = trim(Utils::request('password')??'');
+        $nickname = trim(Utils::request('nickname')??'');
+
+        if ($email === '' || $nickname === '') {
+            throw new Exception("Les champs email et pseudo sont requis pour modifier l'utilisateur.");
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception("L'adresse email n'est pas valide.");
+        }
+
+        $userManager = new UserManager();
+        $user = $userManager->getUserById($userId);
+
+        if ($user === null) {
+            throw new Exception("Utilisateur non trouvé.");
+        }
+
+        // Vérifier si l'email ou le pseudo est déjà utilisé par un autre utilisateur
+        $existingUserByEmail = $userManager->getUserByEmail($email);
+        if ($existingUserByEmail !== null && $existingUserByEmail->getId() !== $userId) {
+            throw new Exception("Un utilisateur avec cet email existe déjà.");
+        }
+
+        $existingUserByNickname = $userManager->getUserByNickname($nickname);
+        if ($existingUserByNickname !== null && $existingUserByNickname->getId() !== $userId) {
+            throw new Exception("Un utilisateur avec ce pseudo existe déjà.");
+        }
+
+        // Mettre à jour les informations de l'utilisateur
+        if ($password !== '') {
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+        } else {
+            $passwordHash = $user->getPasswordHash(); // Conserver l'ancien mot de passe si aucun nouveau n'est fourni
+        }
+        $userManager->updateUser($userId, $nickname, $email, $passwordHash);
+
+        header("Location: index.php?action=myAccount");
+        exit();
+    }
 }

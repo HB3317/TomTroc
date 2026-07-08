@@ -6,18 +6,21 @@
                 <img src="./assets/images/user/du php" alt="default user image">
             </div>
             <div class="text-info">
-                <h2><?= $user->getNickname(); ?></h2>
+                <h2><?= htmlspecialchars($user->getNickname()); ?></h2>
                 <p class="member-since">Membre depuis  <?= $user->getRegisteredSince(); ?> an(s)</p>
                 <p>BIBLIOTHÈQUE</p>
                 <p class="books-owned"><?= $booksOwnedCount; ?> livres</p>
+                <a class="add-book-btn" href="index.php?action=addBookForm">Ajouter un livre</a>
             </div>
         </div>
         <div class="edit-user-form">
             <form action="index.php?action=modifyUser" method="post" class="form-grid">
                 <label for="email">Adresse email</label>
-                <input type="email" name="email" id="email" required>
+                <input type="email" name="email" id="email" value="<?= htmlspecialchars($user->getEmail()); ?>" required>
                 <label for="password">Mot de passe</label>
-                <input type="password" name="password" id="password" required>
+                <input type="password" name="password" id="password">
+                <label for="nickname">Pseudo</label>
+                <input type="text" name="nickname" id="nickname" value="<?= htmlspecialchars($user->getNickname()); ?>" required>
                 <button type="submit" class="primary-btn">Enregistrer</button>
             </form>
         </div>
@@ -38,10 +41,10 @@
             <tbody>
                 <?php foreach ($userBooks as $book) { ?>
                     <tr>
-                        <td><img src="<?= $book->getImage(); ?>" alt="<?= $book->getTitle(); ?>"></td>
-                        <td><?= $book->getTitle(); ?></td>
-                        <td><?= $book->getAuthor(); ?></td>
-                        <td><?= $book->getDescription(); ?></td>
+                        <td><img src="<?= htmlspecialchars($book->getImage()); ?>" alt="<?= htmlspecialchars($book->getTitle()); ?>"></td>
+                        <td><?= htmlspecialchars($book->getTitle()); ?></td>
+                        <td><?= htmlspecialchars($book->getAuthor()); ?></td>
+                        <td><?= htmlspecialchars($book->getDescription()); ?></td>
                         <td class="book-availability">
                             <span class="<?= $book->getStatus() ? 'available' : 'unavailable'; ?>">
                                 <?= $book->getStatus() ? 'Disponible' : 'Non disponible'; ?>
@@ -56,5 +59,4 @@
             </tbody>
         </table>
     </div>
-    <a class="add-book-btn" href="index.php?action=addBookForm">Ajouter un livre</a>
 </div>

@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TomTroc</title>
-    <link rel="stylesheet" href="./css/style.css?v=5">
-    <link rel="stylesheet" href="<?= $css ?>">
+    <link rel="stylesheet" href="./assets/css/style.css?v=5">
+    <?php if ($css !== null) { ?>
+        <link rel="stylesheet" href="<?= $css ?>">
+    <?php } ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:wght@400..900&display=swap" rel="stylesheet">
@@ -67,6 +69,9 @@
             </a>
         </nav>
     </footer>
-
+    <script src="./assets/js/app.js"></script>
+    <?php if ($js !== null) { ?>
+        <script src="<?= $js ?>"></script>
+    <?php } ?>
 </body>
 </html>

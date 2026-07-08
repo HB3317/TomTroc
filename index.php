@@ -22,9 +22,11 @@ $routes = [
     'userProfile'       => [UserController::class,      'userProfile'],
     'login'             => [UserController::class,      'login'],
     'register'          => [UserController::class,      'register'],
+    'modifyUser'        => [UserController::class,      'modifyUser'],
     'chat'              => [MessageController::class,   'showChat'],
     'sendMessage'       => [MessageController::class,   'sendMessage'],
     'showConversation'  => [MessageController::class,   'showConversation'],
+
 ];
 
 // Si l'action existe dans les routes, on appelle le contrôleur et la méthode associés.

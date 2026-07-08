@@ -50,4 +50,15 @@ class UserManager extends AbstractEntityManager
             'registration_date' => date('Y-m-d')
         ]);
     }
+
+    public function updateUser(int $userId, string $nickname, string $email, string $passwordHash): void
+    {
+        $sql = "UPDATE users SET nickname = :nickname, email = :email, password_hash = :password_hash WHERE id = :id";
+        $this->db->query($sql, [
+            'id' => $userId,
+            'nickname' => $nickname,
+            'email' => $email,
+            'password_hash' => $passwordHash
+        ]);
+    }
 }

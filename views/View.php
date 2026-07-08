@@ -28,10 +28,11 @@ class View
         // On s'occupe de la vue envoyée
         $viewPath = $this->buildViewPath($viewName);
         
-        // Les trois variables ci-dessous sont utilisées dans le "main.php" qui est le template principal.
+        // Les quatre variables ci-dessous sont utilisées dans le "main.php" qui est le template principal.
         $content = $this->_renderViewFromTemplate($viewPath, $params);
         $title = $this->title;
         $css = $this->buildCssPath($viewName);
+        $js = $this->buildJsPath($viewName);
         require(MAIN_VIEW_PATH);
     }
     
@@ -64,9 +65,20 @@ class View
         return TEMPLATE_VIEW_PATH . $viewName . '.php';
     }
 
-    private function buildCssPath(string $viewName): string
+    private function buildCssPath(string $viewName): ?string
     {
-        return "./css/" . $viewName . '.css';
+        if (!file_exists("./assets/css/" . $viewName . '.css')) {
+            return null;
+        }
+        return "./assets/css/" . $viewName . '.css';
+    }
+
+    private function buildJsPath(string $viewName): ?string
+    {
+        if (!file_exists("./assets/js/" . $viewName . '.js')) {
+            return null;
+        }
+        return "./assets/js/" . $viewName . '.js';
     }
 }
 
