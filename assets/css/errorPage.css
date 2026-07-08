@@ -1,0 +1,17 @@
+.error-page {
+    text-align: center;
+    padding: 50px;
+    background-color: var(--background-secondary-color);
+    min-height: 100vh;
+}
+
+h1 {
+    font-size: 48px;
+    color: red;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 22px;
+    color: red;
+}

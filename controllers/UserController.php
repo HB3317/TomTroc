@@ -11,22 +11,17 @@ class UserController
     {
         $email = trim(Utils::request('email')??'');
         $password = (Utils::request('password')??'');
-
         if ($email === '' || $password === '') {
             throw new Exception("Tous les champs sont requis pour se connecter.");
         }
-
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new Exception("L'adresse email n'est pas valide.");
         }
-
         $userManager = new UserManager();
         $user = $userManager->getUserByEmail($email);
-
         if ($user === null || !password_verify($password, $user->getPasswordHash())) {
             throw new Exception("Identifiants invalides.");
         }
-
         $_SESSION['user_id'] = (int) $user->getId();
         header("Location: index.php?action=home");
         exit();
@@ -51,15 +46,12 @@ class UserController
         $nickname = trim(Utils::request('nickname')??'');
         $email = trim(Utils::request('email')??'');
         $password = (Utils::request('password')??'');
-
         if ($nickname === '' || $email === '' || $password === '') {
             throw new Exception("Tous les champs sont requis pour s'inscrire.");
         }
-
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new Exception("L'adresse email n'est pas valide.");
         }
-
         $userManager = new UserManager();
         if ($userManager->getUserByEmail($email) !== null) {
             throw new Exception("Un utilisateur avec cet email existe déjà.");
@@ -67,35 +59,24 @@ class UserController
         if ($userManager->getUserByNickname($nickname) !== null) {
             throw new Exception("Un utilisateur avec ce pseudo existe déjà.");
         }
-
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $userManager->createUser($nickname, $email, $passwordHash);
-
         header("Location: index.php?action=loginForm");
         exit();
     }
 
     public function myAccount(): void
     {
-        if (!isset($_SESSION['user_id'])) {
-            header("Location: index.php?action=loginForm");
-            exit();
-        }
-
+        $this->redirectIfNotConnected();
         $userId = $_SESSION['user_id'];
-
         $userManager = new UserManager();
         $bookManager = new BookManager();
-
         $user = $userManager->getUserById($userId);
-
         if ($user === null) {
             throw new Exception("Utilisateur non trouvé.");
         }
-
         $userBooks = $bookManager->getBooksByUserId($userId);
         $booksOwnedCount = count($userBooks);
-
         $view = new View("Mon compte");
         $view->render('myAccount', [
             'user' => $user,
@@ -127,37 +108,27 @@ class UserController
 
     public function modifyUser(): void
     {
-        if (!isset($_SESSION['user_id'])) {
-            header("Location: index.php?action=loginForm");
-            exit();
-        }
-
+        $this->redirectIfNotConnected();
         $userId = $_SESSION['user_id'];
         $email = trim(Utils::request('email')??'');
         $password = trim(Utils::request('password')??'');
         $nickname = trim(Utils::request('nickname')??'');
-
         if ($email === '' || $nickname === '') {
             throw new Exception("Les champs email et pseudo sont requis pour modifier l'utilisateur.");
         }
-
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new Exception("L'adresse email n'est pas valide.");
         }
-
         $userManager = new UserManager();
         $user = $userManager->getUserById($userId);
-
         if ($user === null) {
             throw new Exception("Utilisateur non trouvé.");
         }
-
         // Vérifier si l'email ou le pseudo est déjà utilisé par un autre utilisateur
         $existingUserByEmail = $userManager->getUserByEmail($email);
         if ($existingUserByEmail !== null && $existingUserByEmail->getId() !== $userId) {
             throw new Exception("Un utilisateur avec cet email existe déjà.");
         }
-
         $existingUserByNickname = $userManager->getUserByNickname($nickname);
         if ($existingUserByNickname !== null && $existingUserByNickname->getId() !== $userId) {
             throw new Exception("Un utilisateur avec ce pseudo existe déjà.");
@@ -173,5 +144,27 @@ class UserController
 
         header("Location: index.php?action=myAccount");
         exit();
+    }
+
+    public function changeUserImage(): void
+    {
+        $this->redirectIfNotConnected();
+        if (!isset($_FILES['userImage']) || $_FILES['userImage']['error'] !== UPLOAD_ERR_OK) {
+            throw new Exception("Erreur lors du téléchargement de l'image.");
+        }
+        $destination = './assets/images/users/' . $_SESSION['user_id'] . '.jpg';
+        ImageService::saveUploadedImageAsSquareJpeg($_FILES['userImage']['tmp_name'], $destination, 500);
+        $UserManager= new UserManager();
+        $UserManager->updateUserImage($_SESSION['user_id'], $destination);
+        header('Location: index.php?action=myAccount');
+        exit();
+    }
+
+    private function redirectIfNotConnected(): void
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: index.php?action=loginForm");
+            exit();
+        }
     }
 }

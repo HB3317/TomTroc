@@ -3,7 +3,8 @@
     <div class="user-info">
         <div class="infos">
             <div class="image-info">
-                <img src="./assets/images/user/du php" alt="default user image">
+                <img src="./assets/images/users/<?= htmlspecialchars($user->getId()); ?>.jpg?v=" alt="Photo de profil">
+                <button class="change-image-btn" type="button">Modifier</button>
             </div>
             <div class="text-info">
                 <h2><?= htmlspecialchars($user->getNickname()); ?></h2>
@@ -58,5 +59,21 @@
                 <?php } ?>
             </tbody>
         </table>
+    </div>
+    <div class="modal hidden" id="change-image-modal">
+        <div class="modal-content">
+            <h2>Modifier votre photo</h2>
+            <form action="index.php?action=changeUserImage" method="post" enctype="multipart/form-data">
+                <input type="file" name="userImage" accept=".jpg,.jpeg,.png" required>
+                <div class="modal-buttons">
+                    <button type="submit" class="primary-btn">
+                        Enregistrer
+                    </button>
+                    <button type="button" class="secondary-btn close-modal">
+                        Annuler
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

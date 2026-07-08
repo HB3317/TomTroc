@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TomTroc</title>
-    <link rel="stylesheet" href="./assets/css/style.css?v=5">
+    <link rel="stylesheet" href="./assets/css/style.css?v=6">
     <?php if ($css !== null) { ?>
         <link rel="stylesheet" href="<?= $css ?>">
     <?php } ?>
@@ -71,7 +71,7 @@
     </footer>
     <script src="./assets/js/app.js"></script>
     <?php if ($js !== null) { ?>
-        <script src="<?= $js ?>"></script>
+        <script src="<?= $js ?>?v=1"></script>
     <?php } ?>
 </body>
 </html>

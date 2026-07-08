@@ -23,6 +23,7 @@ $routes = [
     'login'             => [UserController::class,      'login'],
     'register'          => [UserController::class,      'register'],
     'modifyUser'        => [UserController::class,      'modifyUser'],
+    'changeUserImage'   => [UserController::class,      'changeUserImage'],
     'chat'              => [MessageController::class,   'showChat'],
     'sendMessage'       => [MessageController::class,   'sendMessage'],
     'showConversation'  => [MessageController::class,   'showConversation'],
