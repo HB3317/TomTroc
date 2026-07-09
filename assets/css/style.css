@@ -10,6 +10,7 @@
     --unavailable-color: #C56D6D;
     --delete-color: #CB2D2D;
     --border-color: #F0F0F0;
+    --input-form-color: #EDF2F6;
 }
 
 html,
@@ -19,6 +20,7 @@ body {
 
 header {
     background-color: var(--background-color);
+    padding-top: 20px;
 }
 
 body {
@@ -54,12 +56,12 @@ main {
 
 .mainMenu-left {
     justify-content: flex-start;
-    margin-left: 70px;
+    margin-left: 140px;
 }
 
 .mainMenu-right {
     justify-content: flex-end;
-    margin-right: 20px;
+    margin-right: 140px;
 }
 
 .footerMenu a ,
