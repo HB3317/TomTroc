@@ -56,7 +56,7 @@ class ImageService
 
     private static function saveAsJpeg(GdImage $image, string $destination): void
     {
-        if (!imagejpeg($image, $destination, 100)) {
+        if (!imagejpeg($image, $destination, 90)) {
             throw new Exception("Impossible de sauvegarder l'image.");
         }
     }

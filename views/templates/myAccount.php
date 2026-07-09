@@ -52,7 +52,7 @@
                             </span>
                         </td>
                         <td>
-                            <a class="edit-book-btn" href="index.php?action=modifyBook&id=<?= $book->getId(); ?>">Éditer</a>
+                            <a class="edit-book-btn" href="index.php?action=editBookForm&id=<?= $book->getId(); ?>">Éditer</a>
                             <a class="delete-book-btn" href="index.php?action=deleteBook&id=<?= $book->getId(); ?>">Supprimer</a>
                         </td>
                     </tr>

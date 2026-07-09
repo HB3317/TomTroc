@@ -5,7 +5,7 @@ class Book
     private int $userId;
     private string $title;
     private string $author;
-    private string $image;
+    private ?string $image;
     private string $description;
     private bool $status;
 
@@ -15,7 +15,7 @@ class Book
         $this->userId = (int)$data['user_id'];
         $this->title = $data['title'];
         $this->author = $data['author'];
-        $this->image = $data['image'];
+        $this->image = $data['image'] ?? './assets/images/books/default_book_image.jpg';
         $this->description = $data['description'];
         $this->status = (bool)$data['status'];
     }

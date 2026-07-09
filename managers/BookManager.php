@@ -24,43 +24,44 @@ class BookManager extends AbstractEntityManager
         return null;
     }
 
-    public function addOrUpdateBook(Book $book) : void 
+    public function addBook(Book $book) : int
     {
-        if ($book->getId() == -1) {
-            $this->addBook($book);
-        } else {
-            $this->updateBook($book);
-        }
-    }
-
-    
-    public function addBook(Book $book) : void
-    {
+        $defaultImagePath = './assets/images/books/default_book_image.jpg';
         $sql = "INSERT INTO books (user_id, title, author, image, description, status) 
                 VALUES (:user_id, :title, :author, :image, :description, :status)";
         $this->db->query($sql, [
             'user_id'       => $book->getUserId(),
             'title'         => $book->getTitle(),
             'author'        => $book->getAuthor(),
-            'image'         => $book->getImage(),
+            'image'         => $defaultImagePath,
             'description'   => $book->getDescription(),
             'status'        => $book->getStatus()
         ]);
+        $bookId = (int)$this->db->lastInsertId();
+        return $bookId;
     }
 
-    public function updateBook(Book $book) : void
+    public function updateBook(int $bookId, int $userId, string $title, string $author, string $description, bool $status) : void
     {
         $sql = "UPDATE books 
-                SET user_id = :user_id, title = :title, author = :author, image = :image, description = :description, status = :status 
+                SET user_id = :user_id, title = :title, author = :author, description = :description, status = :status 
                 WHERE id = :id";
         $this->db->query($sql, [
-            'id'            => $book->getId(),
-            'user_id'       => $book->getUserId(),
-            'title'         => $book->getTitle(),
-            'author'        => $book->getAuthor(),
-            'image'         => $book->getImage(),
-            'description'   => $book->getDescription(),
-            'status'        => $book->getStatus()
+            'id'            => $bookId,
+            'user_id'       => $userId,
+            'title'         => $title,
+            'author'        => $author,
+            'description'   => $description,
+            'status'        => $status
+        ]);
+    }
+
+    public function changeBookImage(int $bookId, string $imagePath) : void
+    {
+        $sql = "UPDATE books SET image = :image WHERE id = :id";
+        $this->db->query($sql, [
+            'id' => $bookId,
+            'image' => $imagePath
         ]);
     }
 
