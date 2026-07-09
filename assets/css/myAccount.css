@@ -166,6 +166,7 @@ label {
     min-width: 300px;
     min-height: 50px;
     background-color: var(--input-form-color);
+    padding-left: 10px;
 }
 
 .primary-btn {

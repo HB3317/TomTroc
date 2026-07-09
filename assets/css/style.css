@@ -21,6 +21,7 @@ body {
 header {
     background-color: var(--background-color);
     padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 body {

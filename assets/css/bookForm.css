@@ -1,0 +1,110 @@
+.book-form-view {
+    background-color: var(--background-secondary-color);
+    min-height: 100vh;
+    padding-top: 70px;
+}
+
+.back-button{
+    margin-left: 140px;
+    color: var(--secondary-text-color);
+    margin-left: 140px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: 700;
+    font-family: "Playfair Display", sans-serif;
+    margin-bottom: 70px;
+    margin-left: 140px;
+}
+
+form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    background-color: var(--highlight-color);
+    margin-left: 140px;
+    margin-right: 140px;
+    border-radius: 18px;
+}
+
+.image {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 40px;
+}
+
+.image-label {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: var(--secondary-text-color);
+    margin-top: 0px;
+}
+
+img {
+    max-width: 500px;
+    max-height: 500px;
+}
+
+.change-image-btn {
+    color: var(--dark-text-color);
+    border: none;
+    font-size: 12px;
+    font-weight: 400;
+    cursor: pointer;
+    margin-top: 20px;
+    align-self: flex-end;
+    text-decoration: underline;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+}
+
+.form-grid {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: var(--secondary-text-color);
+}
+
+.form input,
+.form textarea,
+.form select {
+    margin-bottom: 20px;
+    border:solid 1px var(--border-color);
+    border-radius: 6px;
+    min-width: 400px;
+    min-height: 50px;
+    background-color: var(--input-form-color);
+    padding: 10px;
+}
+
+.form textarea {
+    min-height: 356px;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: var(--highlight-color);
+    border: none;
+    border-radius: 10px;
+    min-height: 70px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 70px;
+}
+
+select {
+    cursor: pointer;
+}
