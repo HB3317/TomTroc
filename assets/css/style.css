@@ -11,6 +11,7 @@
     --delete-color: #CB2D2D;
     --border-color: #F0F0F0;
     --input-form-color: #EDF2F6;
+    --hover-btn-color: #066506;
 }
 
 html,
@@ -30,7 +31,7 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    background-color: var(--background-color);
+    background-color: var(--background-secondary-color);
     color: var(--dark-text-color);
     font-family: 'Inter', sans-serif;
 }
@@ -39,7 +40,7 @@ main {
     flex: 1;
 }
 
-.mainMenu {
+.main-menu {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,26 +48,26 @@ main {
     font-weight: 400;
 }
 
-.mainMenu-left,
-.mainMenu-right {
+.main-menu-left,
+.main-menu-right {
     width: 50%;
     display: flex;
     align-items: center;
     gap: 60px;
 }
 
-.mainMenu-left {
+.main-menu-left {
     justify-content: flex-start;
     margin-left: 140px;
 }
 
-.mainMenu-right {
+.main-menu-right {
     justify-content: flex-end;
     margin-right: 140px;
 }
 
-.footerMenu a ,
-.mainMenu a {
+.footer-menu a ,
+.main-menu a {
     text-decoration: none;
     color: var(--dark-text-color);
 }
@@ -76,10 +77,22 @@ footer {
     background-color: var(--highlight-color);
 }
 
-.footerMenu {
+.footer-menu {
     display: flex;
     justify-content: flex-end;
     gap: 60px;
     padding: 20px 0;
     margin-right: 20px;
+}
+
+.message-count {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 15px;
+    height: 15px;
+    margin-left: 3px;
+    background-color: var(--dark-text-color);
+    color: var(--highlight-color);
+    border-radius: 50%;
 }

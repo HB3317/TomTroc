@@ -89,4 +89,25 @@ class BookManager extends AbstractEntityManager
         $result = $this->db->query($sql, ['user_id' => $userId]);
         return (int)$result->fetchColumn();
     }
+
+    public function getLatestBooks(?int $limit = 4): array
+    {
+        $sql = "
+            SELECT books.*, users.nickname AS userNickname
+            FROM books
+            INNER JOIN users
+                ON books.user_id = users.id
+            WHERE books.status = 1
+            ORDER BY books.id DESC
+        ";
+        if ($limit !== null) {
+            $sql .= " LIMIT " . (int) $limit;
+        }
+        $result = $this->db->query($sql);
+        $books = [];
+        while ($book = $result->fetch()) {
+            $books[] = new Book($book);
+        }
+        return $books;
+    }
 }

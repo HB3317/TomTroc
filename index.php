@@ -9,7 +9,7 @@ $action = Utils::request('action', 'home');
 
 //Déclaration des routes
 $routes = [
-    'home'              => [HomeController::class,      'showHome'],
+    'home'              => [BookController::class,      'home'],
     'books'             => [BookController::class,      'showBooks'],
     'addBookForm'       => [BookController::class,      'addBookForm'],
     'editBookForm'      => [BookController::class,      'editBookForm'],

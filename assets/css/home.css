@@ -1,0 +1,193 @@
+.home-content{
+    background-color: var(--background-color);
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: 400;
+    font-family: "Playfair Display", sans-serif;
+    margin-bottom: 0;
+}
+
+.join-us {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.join-us-text {
+    margin-right: 15vh;
+    max-width: 50vh;
+}
+
+.join-us-text p {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 7vh;
+}
+
+.join-us-image {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.join-us-image img{
+    margin-left: 5vh;
+    max-width: 70vh;
+}
+.join-us-image p {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--secondary-text-color);
+    font-style: italic;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: var(--highlight-color);
+    border: none;
+    padding: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.secondary-btn {
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+    background-color: var(--hover-btn-color);
+    color: var(--highlight-color);
+    border: none;
+}
+
+.last-books {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5vh;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+    background-color: var(--background-secondary-color);
+}
+
+.books-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5vh;
+    width: 80%;
+}
+
+.book-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: var(--highlight-color);
+    max-width: 40vh;
+}
+.book-card img {
+    width: 100%;
+}
+
+.book-title {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--dark-text-color);
+    margin-bottom: 0;
+    margin-left: 10px;
+}
+
+.book-author {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--secondary-text-color);
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.book-user-id {
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--secondary-text-color);
+    font-style: italic;
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+.how-it-works {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5vh;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+}
+
+.how-it-works p {
+    font-size: 16px;
+    font-weight: 400;
+    max-width: 70vh;
+    text-align: center;
+    color: var(--dark-text-color);
+}
+
+.steps {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 4vw;
+    width: 80%;
+}
+
+.steps p {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--dark-text-color);
+    text-align: center;
+    padding: 30px;
+    background-color: var(--highlight-color);
+    border-radius: 10px;
+}
+
+.banner {
+    width: 100vw;
+    max-height: 30vh;
+    object-fit: cover;
+    display: block;
+}
+
+.our-values {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5vh;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+    max-width: 40vw;
+    margin-left: 30vw;
+}
+
+.signature {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--secondary-text-color);
+    font-style: italic;
+}

@@ -120,4 +120,12 @@ class BookController
         $bookManager->deleteBook($bookId);
         Utils::redirect('myAccount');
     }
+
+    public function home(): void
+    {
+        $bookManager = new BookManager();
+        $books = $bookManager->getLatestBooks();
+        $view = new View("Accueil");
+        $view->render('home', ['books' => $books]);
+    }
 }

@@ -8,6 +8,7 @@ class Book
     private ?string $image;
     private string $description;
     private bool $status;
+    private ?string $userNickname = null;
 
     public function __construct(array $data)
     {
@@ -18,6 +19,7 @@ class Book
         $this->image = $data['image'] ?? './assets/images/books/default_book_image.jpg';
         $this->description = $data['description'];
         $this->status = (bool)$data['status'];
+        $this->userNickname = $data['userNickname'] ?? null;
     }
 
     public function getId(): int
@@ -53,5 +55,10 @@ class Book
     public function getStatus(): bool
     {
         return $this->status;
+    }
+
+    public function getUserNickname(): ?string
+    {
+        return $this->userNickname;
     }
 }

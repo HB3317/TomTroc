@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TomTroc</title>
-    <link rel="stylesheet" href="./assets/css/style.css?v=6">
+    <link rel="stylesheet" href="./assets/css/style.css?v=<?= filemtime('./assets/css/style.css'); ?>">
     <?php if ($css !== null) { ?>
-        <link rel="stylesheet" href="<?= $css ?>">
+        <link rel="stylesheet" href="<?= $css ?>?v=<?= filemtime($css); ?>">
     <?php } ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,8 +15,8 @@
 
 <body>
     <header>
-        <nav class="mainMenu">
-            <div class="mainMenu-left">
+        <nav class="main-menu">
+            <div class="main-menu-left">
                 <a href="index.php?action=home">
                     <img src="./assets/images/logo/logo.svg" alt="Accueil"> </a>
                 <a href="index.php?action=home">
@@ -27,12 +27,12 @@
                 </a>
             </div>
 
-            <div class="mainMenu-right">
+            <div class="main-menu-right">
                 <?php if (isset($_SESSION['user_id'])) { ?>
                     <a href="index.php?action=chat">
                         <img src="./assets/icons/chat.png" alt="Messagerie">
                         Messagerie
-                        <span class="messageCount">
+                        <span class="message-count">
                             (<?= $unreadMessagesCount ?? 0; ?>)
                         </span>
                     </a>
@@ -60,7 +60,7 @@
     </main>
     
     <footer>
-        <nav class="footerMenu">
+        <nav class="footer-menu">
             <a href="#">Politique de confidentialité</a>
             <a href="#">Mentions légales</a>
             <a href="#">Tom Troc©</a>
