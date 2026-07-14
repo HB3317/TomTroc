@@ -1,0 +1,110 @@
+.book-details {
+    background-color: var(--background-color);
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: 400;
+    color: var(--dark-text-color);
+    font-family: "Playfair Display", sans-serif;
+    margin-top: 0px;
+}
+
+h2 {
+    font-size: 8px;
+    font-weight: 600;
+    color: var(--dark-text-color);
+    font-family: "Inter", sans-serif;
+    margin-bottom: 1rem;
+}
+
+.breadcrumb {
+    font-size: 10px;
+    font-weight: 300;
+    color: var(--secondary-text-color);
+    font-family: "Inter", sans-serif;
+    margin-left: 10vw;
+    margin-bottom: 2vh;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: var(--secondary-text-color);
+}
+
+.book-details-content {
+    display: flex;
+    align-items: center;
+    background-color: var(--secondary-background-color);
+}
+
+.book-image {
+    flex: 0 0 50%;
+}
+
+.book-image img {
+    width: 100%;
+    height: 100%;
+}
+
+.book-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-left: 5vw;
+    padding-right: 10vw;
+}
+
+.title-and-author p {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--secondary-text-color);
+    font-family: "Inter", sans-serif;
+}
+
+.separator {
+    border: none;
+    border-top: 1px solid var(--secondary-text-color);
+    width: 40px;
+    margin-left: 0;
+}
+
+.description-content {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--dark-text-color);
+}
+
+.owner-account {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem;
+    padding-right: 1.5rem;
+    border-radius: 4rem;
+    background-color: var(--highlight-color);
+    text-decoration: none;
+    color: var(--dark-text-color);
+}
+
+.owner img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-right: 2vw;
+}
+
+.primary-btn {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    background-color: var(--primary-color);
+    color: var(--highlight-color);
+    border: none;
+    border-radius: 10px;
+    min-width: 100%;
+    height: 7vh;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}

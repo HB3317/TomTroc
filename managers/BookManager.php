@@ -15,7 +15,16 @@ class BookManager extends AbstractEntityManager
 
     public function getBookById(int $id) : ?Book
     {
-        $sql = "SELECT * FROM books WHERE id = :id";
+        $sql = "SELECT
+                    books.*,
+                    users.nickname AS userNickname,
+                    users.image AS userImage
+                FROM books
+                INNER JOIN users
+                    ON books.user_id = users.id
+                WHERE books.id = :id
+        ";
+        
         $result = $this->db->query($sql, ['id' => $id]);
         $book = $result->fetch();
         if ($book) {
@@ -114,7 +123,9 @@ class BookManager extends AbstractEntityManager
     public function searchBooks(string $search): array
     {
         $sql = "
-            SELECT books.*, users.nickname AS userNickname
+            SELECT books.*, 
+                users.nickname AS userNickname,
+                users.image AS userImage
             FROM books
             INNER JOIN users 
                 ON books.user_id = users.id

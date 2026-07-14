@@ -2,7 +2,7 @@
 
 class BookController
 {
-    public function showBookDetails(): void
+    public function bookDetails(): void
     {
         $bookId = Utils::request('id');
         if ($bookId === null){

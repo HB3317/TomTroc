@@ -9,7 +9,7 @@
     </div>
     <div class="books-list">
         <?php foreach ($books as $book) : ?>
-            <a href="index.php?action=book&id=<?= $book->getId(); ?>" class="book-card">
+            <a href="index.php?action=bookDetails&id=<?= $book->getId(); ?>" class="book-card">
                 <img src="<?= htmlspecialchars($book->getImage()); ?>" alt="Couverture de <?= htmlspecialchars($book->getTitle()); ?>">
                 <p class="book-title"><?= htmlspecialchars($book->getTitle()); ?></p>
                 <p class="book-author"><?= htmlspecialchars($book->getAuthor()); ?></p>
