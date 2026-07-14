@@ -58,12 +58,12 @@ main {
 
 .main-menu-left {
     justify-content: flex-start;
-    margin-left: 10vw;
+    margin-left: 140px;
 }
 
 .main-menu-right {
     justify-content: flex-end;
-    margin-right: 10vw;
+    margin-right: 140px;
 }
 
 .footer-menu a ,

@@ -69,6 +69,24 @@ class UserController
     {
         $this->redirectIfNotConnected();
         $userId = $_SESSION['user_id'];
+        $data = $this->getUserProfileData((int)$userId);
+        $view = new View("Mon compte");
+        $view->render('myAccount', $data);
+    }
+
+    public function publicAccount(): void
+    {
+        $userId = Utils::request('id');
+        if ($userId === null) {
+            throw new Exception("Utilisateur non trouvé.");
+        }
+        $data = $this->getUserProfileData((int)$userId);
+        $view = new View("Profil public");
+        $view->render('publicAccount', $data);
+    }
+
+    private function getUserProfileData(int $userId): array
+    {
         $userManager = new UserManager();
         $bookManager = new BookManager();
         $user = $userManager->getUserById($userId);
@@ -76,13 +94,11 @@ class UserController
             throw new Exception("Utilisateur non trouvé.");
         }
         $userBooks = $bookManager->getBooksByUserId($userId);
-        $booksOwnedCount = count($userBooks);
-        $view = new View("Mon compte");
-        $view->render('myAccount', [
+        return [
             'user' => $user,
-            'booksOwnedCount' => $booksOwnedCount,
+            'booksOwnedCount' => count($userBooks),
             'userBooks' => $userBooks
-        ]);
+        ];
     }
 
     public function userProfile(): void

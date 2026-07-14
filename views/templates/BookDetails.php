@@ -22,12 +22,12 @@
             </div>
             <div class="owner">
                 <h2>PROPRIÉTAIRE</h2>
-                <a class="owner-account" href="index.php?action=userProfile&id=<?= (int) $book->getUserId(); ?>">
+                <a class="owner-account" href="index.php?action=publicAccount&id=<?= (int) $book->getUserId(); ?>">
                     <img src="<?= htmlspecialchars($book->getUserImage()); ?>" alt="Photo de <?= htmlspecialchars($book->getUserNickname()); ?>">
                     <p><?= htmlspecialchars($book->getUserNickname()); ?></p>
                 </a>
             </div>
-            <a href="index.php?action=sendMessage&userId=<?= (int) $book->getUserId(); ?>" class="primary-btn">Envoyer un message</a>
+            <a href="index.php?action=conversation&userId=<?= (int) $book->getUserId(); ?>" class="primary-btn">Envoyer un message</a>
         </div>
     </div>
 </div>
