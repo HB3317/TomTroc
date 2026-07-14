@@ -2,16 +2,6 @@
 
 class BookController
 {
-    public function showBooks(): void
-    {
-        $bookManager = new BookManager();
-        $books = $bookManager->getAllBooks();
-        $view = new View("Nos livres à l'échange");
-        $view->render('books' , [
-            'books' => $books
-        ]);
-    }
-
     public function showBookDetails(): void
     {
         $bookId = Utils::request('id');
@@ -127,5 +117,18 @@ class BookController
         $books = $bookManager->getLatestBooks();
         $view = new View("Accueil");
         $view->render('home', ['books' => $books]);
+    }
+
+    public function showBooks(): void
+    {
+        $search = trim(Utils::request('search', ''));
+        $bookManager = new BookManager();
+        if ($search === '') {
+            $books = $bookManager->getLatestBooks(null);
+        } else {
+            $books = $bookManager->searchBooks($search);
+        }
+        $view = new View("Nos livres à l'échange");
+        $view->render('books', ['books' => $books, 'search' => $search]);
     }
 }

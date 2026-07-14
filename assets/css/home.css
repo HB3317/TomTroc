@@ -118,7 +118,7 @@ h1 {
     margin-left: 10px;
 }
 
-.book-user-id {
+.book-owner {
     font-size: 10px;
     font-weight: 400;
     color: var(--secondary-text-color);

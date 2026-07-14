@@ -18,7 +18,7 @@
                     <img src="<?= htmlspecialchars($book->getImage()); ?>" alt="Image du livre">
                     <p class="book-title"><?= htmlspecialchars($book->getTitle()); ?></p>
                     <p class="book-author"><?= htmlspecialchars($book->getAuthor()); ?></p>
-                    <p class="book-user-id">Vendu par : <?= htmlspecialchars($book->getUserNickname()); ?></p>
+                    <p class="book-owner">Vendu par : <?= htmlspecialchars($book->getUserNickname()); ?></p>
                 </div>
             <?php endforeach; ?>
         </div>
