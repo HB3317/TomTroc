@@ -33,7 +33,7 @@
                         <img src="./assets/icons/chat.png" alt="Messagerie">
                         Messagerie
                         <span class="message-count">
-                            (<?= $unreadMessagesCount ?? 0; ?>)
+                            <?= (int) ($unreadMessageCount ?? 0); ?>
                         </span>
                     </a>
 

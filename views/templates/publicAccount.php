@@ -12,7 +12,7 @@
                 <img src="./assets/icons/library.svg" alt="Icône de livre">
                 <span class="books-owned"><?= $booksOwnedCount; ?> livres</span>
             </div>
-            <a class="chat-btn" href="index.php?action=conversation&receiverId=<?= (int) $user->getId(); ?>">Écrire un message</a>
+            <a class="chat-btn" href="index.php?action=chat&user=<?= (int) $user->getId(); ?>">Écrire un message</a>
         </div>
     </div>
     <div class="books-list">

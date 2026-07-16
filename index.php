@@ -27,9 +27,7 @@ $routes = [
     'modifyUser'        => [UserController::class,      'modifyUser'],
     'changeUserImage'   => [UserController::class,      'changeUserImage'],
     'chat'              => [MessageController::class,   'chat'],
-    'newConversation'   => [MessageController::class,   'newConversation'],
     'sendMessage'       => [MessageController::class,   'sendMessage'],
-    'showConversation'  => [MessageController::class,   'showConversation'],
 
 ];
 

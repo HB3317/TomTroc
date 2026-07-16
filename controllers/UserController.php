@@ -60,7 +60,14 @@ class UserController
             throw new Exception("Un utilisateur avec ce pseudo existe déjà.");
         }
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-        $userManager->createUser($nickname, $email, $passwordHash);
+        $userId = $userManager->createUser($nickname, $email, $passwordHash);
+        $messageManager = new MessageManager();
+        $messageManager->addMessage(
+            1, 
+            $userId, 
+            "Bienvenue sur TomTroc !", 
+            date('Y-m-d H:i:s'), 
+            0);
         header("Location: index.php?action=loginForm");
         exit();
     }

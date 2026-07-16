@@ -33,7 +33,14 @@ class View
         $title = $this->title;
         $css = $this->buildCssPath($viewName);
         $js = $this->buildJsPath($viewName);
-        require(MAIN_VIEW_PATH);
+        $unreadMessageCount = $params['unreadMessageCount'] ?? 0;
+
+    if (!isset($params['unreadMessageCount']) && isset($_SESSION['user_id'])) 
+    {
+        $unreadMessageCount = (new MessageManager())->getUnreadMessageCount((int) $_SESSION['user_id']);
+    }
+    
+    require(MAIN_VIEW_PATH);
     }
     
     /**

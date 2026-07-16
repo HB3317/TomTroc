@@ -1,5 +1,5 @@
 <?php
-class Message extends AbstractEntity
+class Message
 {
     private int $id;
     private int $senderId;
@@ -7,16 +7,21 @@ class Message extends AbstractEntity
     private string $content;
     private string $dateTime;
     private int $isRead;
+    private ?string $otherUserNickname = null;
+    private ?string $otherUserImage = null;
+    private ?int $otherUserId = null;
 
     public function __construct(array $data)
     {
-        parent::__construct($data);
         $this->id = (int)$data['id'];
         $this->senderId = (int)$data['sender_id'];
         $this->receiverId = (int)$data['receiver_id'];
         $this->content = $data['content'];
         $this->dateTime = $data['date_time'];
         $this->isRead = (int)$data['is_read'];
+        $this->otherUserNickname = $data['otherUserNickname'] ?? null;
+        $this->otherUserImage = $data['otherUserImage'] ?? null;
+        $this->otherUserId = $data['otherUserId'] ?? null;
     }
 
     public function getId(): int
@@ -49,4 +54,47 @@ class Message extends AbstractEntity
         return (bool)$this->isRead;
     }
 
+    public function getOtherUserNickname(): ?string
+    {
+        return $this->otherUserNickname;
+    }
+
+    public function getOtherUserImage(): ?string
+    {
+        return $this->otherUserImage;
+    }
+
+    public function getOtherUserId(): ?int
+    {
+        return $this->otherUserId;
+    }
+
+    public function getMessageDate(): string
+    {
+        $timestamp = strtotime($this->dateTime);
+        $messageDate = date('Y-m-d', $timestamp);
+        $today = date('Y-m-d');
+        $oneWeekAgo = date('Y-m-d', strtotime('-7 days'));
+        $oneYearAgo = date('Y-m-d', strtotime('-1 year'));
+        if ($messageDate === $today) {
+            return date('H:i', $timestamp);
+        }
+        if ($messageDate >= $oneWeekAgo) {
+            $days = [
+                'Mon' => 'lun',
+                'Tue' => 'mar',
+                'Wed' => 'mer',
+                'Thu' => 'jeu',
+                'Fri' => 'ven',
+                'Sat' => 'sam',
+                'Sun' => 'dim'
+            ];
+            $day = $days[date('D', $timestamp)];
+            return $day . ' ' . date('H:i', $timestamp);
+        }
+        if ($messageDate >= $oneYearAgo) {
+            return date('d/m H:i', $timestamp);
+        }
+        return date('d/m/y H:i', $timestamp);
+    }
 }

@@ -40,7 +40,7 @@ class UserManager extends AbstractEntityManager
         return new User($user);
     }
 
-    public function createUser(string $nickname, string $email, string $passwordHash): void
+    public function createUser(string $nickname, string $email, string $passwordHash): int
     {
         $sql = "INSERT INTO users (nickname, email, password_hash, registration_date) 
                 VALUES (:nickname, :email, :password_hash, :registration_date)";
@@ -51,22 +51,18 @@ class UserManager extends AbstractEntityManager
             'password_hash' => $passwordHash,
             'registration_date' => date('Y-m-d')
         ]);
-
-        $userId = $this->db->lastInsertId();
-
+        $userId = (int) $this->db->lastInsertId();
         $source = './assets/images/users/default_user_image.jpg';
         $destination = './assets/images/users/' . $userId . '.jpg';
-
         if (!copy($source, $destination)) {
             throw new Exception("Impossible de créer l'image par défaut de l'utilisateur.");
         }
-
         $sql = "UPDATE users SET image = :image WHERE id = :id";
-
         $this->db->query($sql, [
             'image' => $destination,
             'id' => $userId
         ]);
+        return $userId;
     }
 
     public function updateUser(int $userId, string $nickname, string $email, string $passwordHash): void

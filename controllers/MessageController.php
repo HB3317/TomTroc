@@ -1,19 +1,42 @@
 <?php
 class MessageController
 {
-    public function showChat(): void
+    public function chat(): void
     {
+        $currentUserId = $_SESSION['user_id'] ?? null;
+        if ($currentUserId === null) {
+            throw new Exception("Vous devez être connecté pour accéder à la messagerie.");
+        }
         $messageManager = new MessageManager();
-        $messages = $messageManager->getAllMessages();
+        $otherUserId = Utils::request('user');
+        $conversationList = $messageManager->getConversationList($currentUserId);    
+        if ($otherUserId === null) {
+            $latestMessage = $conversationList[0];
+            $otherUserId = $latestMessage->getOtherUserId();
+        };
+        $messages = $messageManager->getMessagesBetweenUsers($currentUserId, $otherUserId);
+        $conversationUnreadMessageCount = $messageManager->getConversationUnreadMessageCount($currentUserId, $otherUserId);
+        $unreadMessageCount = $messageManager->getUnreadMessageCount($currentUserId);
+        $messageManager->markConversationAsRead($currentUserId, $otherUserId);
         $view = new View("Messagerie");
         $view->render('chat', [
-            'messages' => $messages
+            'currentUserId' => $currentUserId,
+            'otherUserId' => $otherUserId,
+            'messages' => $messages,
+            'conversationUnreadMessageCount' => $conversationUnreadMessageCount,
+            'conversations' => $conversationList,
+            'otherUser' => (new UserManager())->getUserById($otherUserId),
+            'unreadMessageCount' => $unreadMessageCount,
+            'selectedConversationId' => $otherUserId
         ]);
     }
 
     public function sendMessage(): void
     {
-        $senderId = Utils::request('sender_id');
+        $senderId = $_SESSION['user_id'] ?? null;
+        if ($senderId === null) {
+            throw new Exception("Vous devez être connecté pour envoyer un message.");
+        }
         $receiverId = Utils::request('receiver_id');
         $content = Utils::request('content');
 
@@ -30,29 +53,8 @@ class MessageController
         $messageManager = new MessageManager();
         $messageManager->addMessage($senderId, $receiverId, $content, $dateTime, $isRead);
 
-        header("Location: index.php?action=showChat");
+        header("Location: index.php?action=chat&user=$receiverId");
         exit();
     }
 
-    public function showConversation(): void
-    {
-        $otherUserId = Utils::request('user2');
-
-
-        if ($otherUserId === null) {
-            throw new Exception("Identifiants d'utilisateur invalides.");
-        }
-
-        $currentUserId = (int) $_SESSION['user_id'];
-        $otherUserId = (int) $otherUserId;
-
-        $messageManager = new MessageManager();
-        $messages = $messageManager->getMessagesBetweenUsers($currentUserId, $otherUserId);
-
-        $view = new View("Messagerie");
-        $view->render('chat', [
-            'messages' => $messages,
-            'otherUserId' => $otherUserId
-        ]);
-    }
 }

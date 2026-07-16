@@ -27,7 +27,7 @@
                     <p><?= htmlspecialchars($book->getUserNickname()); ?></p>
                 </a>
             </div>
-            <a href="index.php?action=conversation&userId=<?= (int) $book->getUserId(); ?>" class="primary-btn">Envoyer un message</a>
+            <a href="index.php?action=chat&user=<?= (int) $book->getUserId(); ?>" class="primary-btn">Envoyer un message</a>
         </div>
     </div>
 </div>

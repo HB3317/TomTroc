@@ -91,6 +91,7 @@ label {
 
 .form textarea {
     min-height: 356px;
+    resize: none;
 }
 
 button {
