@@ -8,26 +8,31 @@ class MessageController
             throw new Exception("Vous devez être connecté pour accéder à la messagerie.");
         }
         $messageManager = new MessageManager();
+        $conversationManager = new ConversationManager();
         $otherUserId = Utils::request('user');
-        $conversationList = $messageManager->getConversationList($currentUserId);    
+        if ($otherUserId !== null && (int)$otherUserId === (int)$currentUserId) {
+            header('Location: index.php?action=chat');
+            exit();
+        }
+        $conversations = $conversationManager->getConversationList($currentUserId);
         if ($otherUserId === null) {
-            $latestMessage = $conversationList[0];
-            $otherUserId = $latestMessage->getOtherUserId();
-        };
+            $latestConversation = $conversations[0];
+            $otherUserId = $latestConversation->getOtherUserId();
+        }
+        $conversationManager->markConversationAsRead($currentUserId, $otherUserId);
+        $conversations = $conversationManager->getConversationList($currentUserId);
         $messages = $messageManager->getMessagesBetweenUsers($currentUserId, $otherUserId);
-        $conversationUnreadMessageCount = $messageManager->getConversationUnreadMessageCount($currentUserId, $otherUserId);
         $unreadMessageCount = $messageManager->getUnreadMessageCount($currentUserId);
-        $messageManager->markConversationAsRead($currentUserId, $otherUserId);
         $view = new View("Messagerie");
         $view->render('chat', [
             'currentUserId' => $currentUserId,
             'otherUserId' => $otherUserId,
             'messages' => $messages,
-            'conversationUnreadMessageCount' => $conversationUnreadMessageCount,
-            'conversations' => $conversationList,
+            'conversations' => $conversations,
             'otherUser' => (new UserManager())->getUserById($otherUserId),
             'unreadMessageCount' => $unreadMessageCount,
-            'selectedConversationId' => $otherUserId
+            'selectedConversationId' => $otherUserId,
+            'currentPage' => 'chat'
         ]);
     }
 
@@ -40,12 +45,15 @@ class MessageController
         $receiverId = Utils::request('receiver_id');
         $content = Utils::request('content');
 
-        if ($senderId === null || $receiverId === null || $content === null || trim($content) === '') {
+        if ($receiverId === null || $content === null || trim($content) === '') {
             throw new Exception("Tous les champs sont requis pour envoyer un message.");
         }
-
         $senderId = (int) $senderId;
         $receiverId = (int) $receiverId;
+        if ($senderId === $receiverId) {
+            header('Location: index.php?action=chat');
+            exit();
+        }
         $content = trim($content);
         $dateTime = date('Y-m-d H:i:s');
         $isRead = 0;

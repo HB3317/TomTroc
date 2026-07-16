@@ -19,17 +19,18 @@
             <div class="main-menu-left">
                 <a href="index.php?action=home">
                     <img src="./assets/images/logo/logo.svg" alt="Accueil"> </a>
-                <a href="index.php?action=home">
+                <a class="<?= ($currentPage === 'home') ? 'menu-active' : '' ?>" href="index.php?action=home">
                     Accueil
                 </a>
-                <a href="index.php?action=books">
+                <a class="<?= ($currentPage === 'books') ? 'menu-active' : '' ?>" href="index.php?action=books">
                     Nos livres à l'échange
                 </a>
             </div>
 
             <div class="main-menu-right">
-                <?php if (isset($_SESSION['user_id'])) { ?>
-                    <a href="index.php?action=chat">
+                <?php 
+                if (isset($_SESSION['user_id'])) { ?>
+                    <a class="<?= ($currentPage === 'chat') ? 'menu-active' : '' ?>" href="index.php?action=chat">
                         <img src="./assets/icons/chat.png" alt="Messagerie">
                         Messagerie
                         <span class="message-count">
@@ -37,7 +38,7 @@
                         </span>
                     </a>
 
-                    <a href="index.php?action=myAccount">
+                    <a class="<?= ($currentPage === 'myAccount') ? 'menu-active' : '' ?>" href="index.php?action=myAccount">
                         <img src="./assets/icons/myAccount.png" alt="Mon compte">
                         Mon compte
                     </a>
@@ -45,10 +46,18 @@
                     <a href="index.php?action=logout">
                         Déconnexion
                     </a>
-                <?php } else { ?>
-                    <a href="index.php?action=loginForm">
-                        Connexion
-                    </a>
+                <?php } 
+                else { ?>
+                    <?php 
+                    if ($currentPage === 'loginForm') { ?>
+                        <a class="menu-active" href="index.php?action=loginForm">
+                            Connexion
+                        </a>
+                    <?php } else { ?>
+                        <a class="<?= ($currentPage === 'registerForm') ? 'menu-active' : '' ?>" href="index.php?action=registerForm">
+                            Inscription
+                        </a>
+                    <?php } ?>
                 <?php } ?>
             </div>
         </nav>

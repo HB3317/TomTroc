@@ -4,6 +4,7 @@ class BookController
 {
     public function bookDetails(): void
     {
+        $currentUserId = $_SESSION['user_id'] ?? null;
         $bookId = Utils::request('id');
         if ($bookId === null){
             throw new Exception ("Aucun identifiant de livre fourni.");
@@ -15,7 +16,8 @@ class BookController
         }
         $view = new View("Livre");
         $view->render('bookDetails' , [
-            'book' => $book
+            'book' => $book,
+            'currentUserId' => $currentUserId,
         ]);
     }
 
@@ -116,7 +118,10 @@ class BookController
         $bookManager = new BookManager();
         $books = $bookManager->getLatestBooks();
         $view = new View("Accueil");
-        $view->render('home', ['books' => $books]);
+        $view->render('home', [
+            'books' => $books ,
+            'currentPage' => 'home'
+        ]);
     }
 
     public function showBooks(): void
@@ -129,6 +134,10 @@ class BookController
             $books = $bookManager->searchBooks($search);
         }
         $view = new View("Nos livres à l'échange");
-        $view->render('books', ['books' => $books, 'search' => $search]);
+        $view->render('books', [
+            'books' => $books,
+            'search' => $search,
+            'currentPage' => 'books'
+        ]);
     }
 }

@@ -22,12 +22,22 @@
             </div>
             <div class="owner">
                 <h2>PROPRIÉTAIRE</h2>
-                <a class="owner-account" href="index.php?action=publicAccount&id=<?= (int) $book->getUserId(); ?>">
-                    <img src="<?= htmlspecialchars($book->getUserImage()); ?>" alt="Photo de <?= htmlspecialchars($book->getUserNickname()); ?>">
-                    <p><?= htmlspecialchars($book->getUserNickname()); ?></p>
-                </a>
+                <?php 
+                if ($book->getUserId() === $currentUserId): ?>
+                    <a class="owner-account" href="index.php?action=myAccount">
+                        <img src="<?= htmlspecialchars($book->getUserImage()); ?>" alt="Photo de <?= htmlspecialchars($book->getUserNickname()); ?>">
+                        <p><?= htmlspecialchars($book->getUserNickname()); ?></p>
+                    </a>
+                <?php else: ?>
+                    <a class="owner-account" href="index.php?action=publicAccount&id=<?= (int) $book->getUserId(); ?>">
+                        <img src="<?= htmlspecialchars($book->getUserImage()); ?>" alt="Photo de <?= htmlspecialchars($book->getUserNickname()); ?>">
+                        <p><?= htmlspecialchars($book->getUserNickname()); ?></p>
+                    </a>
+                <?php endif; ?>
             </div>
-            <a href="index.php?action=chat&user=<?= (int) $book->getUserId(); ?>" class="primary-btn">Envoyer un message</a>
+            <?php if ($book->getUserId() !== $currentUserId): ?>
+                <a href="index.php?action=chat&user=<?= (int) $book->getUserId(); ?>" class="primary-btn">Envoyer un message</a>
+            <?php endif; ?>
         </div>
     </div>
 </div>

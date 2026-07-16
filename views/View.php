@@ -34,6 +34,7 @@ class View
         $css = $this->buildCssPath($viewName);
         $js = $this->buildJsPath($viewName);
         $unreadMessageCount = $params['unreadMessageCount'] ?? 0;
+        $currentPage = $params['currentPage'] ?? null;
 
     if (!isset($params['unreadMessageCount']) && isset($_SESSION['user_id'])) 
     {

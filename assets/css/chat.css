@@ -186,7 +186,7 @@ button {
 }
 
 .conversation-unread-message-count {
-    color: var(--main-text-color-color);
+    color: var(--main-text-color);
     font-size: 12px;
     font-weight: 900;
 }

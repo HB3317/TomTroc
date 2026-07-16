@@ -96,3 +96,9 @@ footer {
     color: var(--highlight-color);
     border-radius: 50%;
 }
+
+.menu-active {
+    font-weight: 700;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 4px;
+}

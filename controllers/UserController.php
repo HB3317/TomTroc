@@ -4,7 +4,9 @@ class UserController
     public function loginForm(): void
     {
         $view = new View("Connexion");
-        $view->render('loginForm');
+        $view->render('loginForm',[
+            'currentPage' => 'loginForm'
+        ]);
     }
 
     public function login(): void
@@ -38,7 +40,9 @@ class UserController
     public function registerForm(): void
     {
         $view = new View("Inscription");
-        $view->render('registerForm');
+        $view->render('registerForm', [
+            'currentPage' => 'registerForm'
+        ]);
     }
 
     public function register(): void
@@ -77,6 +81,7 @@ class UserController
         $this->redirectIfNotConnected();
         $userId = $_SESSION['user_id'];
         $data = $this->getUserProfileData((int)$userId);
+        $data['currentPage'] = 'myAccount';
         $view = new View("Mon compte");
         $view->render('myAccount', $data);
     }

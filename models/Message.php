@@ -7,9 +7,6 @@ class Message
     private string $content;
     private string $dateTime;
     private int $isRead;
-    private ?string $otherUserNickname = null;
-    private ?string $otherUserImage = null;
-    private ?int $otherUserId = null;
 
     public function __construct(array $data)
     {
@@ -19,9 +16,6 @@ class Message
         $this->content = $data['content'];
         $this->dateTime = $data['date_time'];
         $this->isRead = (int)$data['is_read'];
-        $this->otherUserNickname = $data['otherUserNickname'] ?? null;
-        $this->otherUserImage = $data['otherUserImage'] ?? null;
-        $this->otherUserId = $data['otherUserId'] ?? null;
     }
 
     public function getId(): int
@@ -52,21 +46,6 @@ class Message
     public function getIsRead(): bool
     {
         return (bool)$this->isRead;
-    }
-
-    public function getOtherUserNickname(): ?string
-    {
-        return $this->otherUserNickname;
-    }
-
-    public function getOtherUserImage(): ?string
-    {
-        return $this->otherUserImage;
-    }
-
-    public function getOtherUserId(): ?int
-    {
-        return $this->otherUserId;
     }
 
     public function getMessageDate(): string

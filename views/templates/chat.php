@@ -7,11 +7,24 @@
                 <div class="conversation-info">
                     <div class="conversation-header">
                         <span class="other-user-nickname"><?= htmlspecialchars($conversation->getOtherUserNickname()) ?></span>
-                        <span class="last-message-time"><?= htmlspecialchars($conversation->getMessageDate()) ?></span>
+                        <span class="last-message-time"><?= htmlspecialchars($conversation->getLastMessage()->getMessageDate()) ?></span>
                     </div>
                     <div class="conversation-last-message">
-                        <span><?= htmlspecialchars(mb_strimwidth($conversation->getContent(), 0, 50, '...')) ?></span>
+                        <span><?= htmlspecialchars(mb_strimwidth($conversation->getLastMessage()->getContent(), 0, 50, '...')) ?></span>
                     </div>
+                    <?php if ($conversation->getConversationUnreadMessageCount() > 0): 
+                        if ($conversation->getConversationUnreadMessageCount() == 1):?>
+                            <span class="conversation-unread-message-count">
+                                <?= $conversation->getConversationUnreadMessageCount() ?>
+                                message non lu
+                            </span>
+                        <?php else: ?>
+                            <span class="conversation-unread-message-count">
+                                <?= $conversation->getConversationUnreadMessageCount() ?>
+                                messages non lus
+                            </span>
+                        <?php endif; ?>
+                    <?php endif; ?>
                 </div>
             </a>
         <?php endforeach; ?>
