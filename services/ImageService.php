@@ -6,8 +6,7 @@ class ImageService
         string $tmpPath,
         string $destination,
         int $size
-    ): void
-    {
+    ): void {
         $mimeType = self::getImageMimeType($tmpPath);
         $image = self::createImageFromMimeType($tmpPath, $mimeType);
         $squareImage = self::cropAndResizeToSquare($image, $size);

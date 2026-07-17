@@ -1,11 +1,11 @@
 <?php
 
-class DBManager 
+class DBManager
 {
     private static ?DBManager $instance = null;
     private PDO $db;
 
-    private function __construct() 
+    private function __construct()
     {
         $this->db = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8', DB_USER, DB_PASS);
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -40,5 +40,4 @@ class DBManager
     {
         return (int) $this->db->lastInsertId();
     }
-    
 }

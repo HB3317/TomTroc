@@ -1,4 +1,5 @@
 <?php
+
 require_once 'config/config.php';
 require_once 'config/autoload.php';
 
@@ -28,13 +29,22 @@ $routes = [
 
 try {
     if (!isset($routes[$action])) {
-        throw new Exception("La page demandée n'existe pas.");
+        throw new PageNotFoundException("La page demandée n'existe pas.");
     }
     $controllerName = $routes[$action][0];
     $methodName = $routes[$action][1];
     $controller = new $controllerName();
     $controller->$methodName();
+} catch (PageNotFoundException $e) {
+    http_response_code(404);
+    $errorView = new View('Page introuvable');
+    $errorView->render('errorPage', [
+        'errorCode' => 404,
+        'errorMessage' => $e->getMessage(),
+    ]);
 } catch (Exception $e) {
     $errorView = new View('Erreur');
-    $errorView->render('errorPage', ['errorMessage' => $e->getMessage()]);
+    $errorView->render('errorPage', [
+        'errorMessage' => $e->getMessage(),
+    ]);
 }

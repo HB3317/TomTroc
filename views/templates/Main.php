@@ -10,7 +10,10 @@
     <?php } ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:wght@400..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:wght@400..900&display=swap"
+        rel="stylesheet"
+    >
 </head>
 
 <body>
@@ -28,7 +31,7 @@
             </div>
 
             <div class="main-menu-right">
-                <?php 
+                <?php
                 if (isset($_SESSION['user_id'])) { ?>
                     <a class="<?= ($currentPage === 'chat') ? 'menu-active' : '' ?>" href="index.php?action=chat">
                         <img src="./assets/icons/chat.png" alt="Messagerie">
@@ -38,7 +41,10 @@
                         </span>
                     </a>
 
-                    <a class="<?= ($currentPage === 'myAccount') ? 'menu-active' : '' ?>" href="index.php?action=myAccount">
+                    <a
+                        class="<?= ($currentPage === 'myAccount') ? 'menu-active' : '' ?>"
+                        href="index.php?action=myAccount"
+                    >
                         <img src="./assets/icons/myAccount.png" alt="Mon compte">
                         Mon compte
                     </a>
@@ -46,15 +52,17 @@
                     <a href="index.php?action=logout">
                         Déconnexion
                     </a>
-                <?php } 
-                else { ?>
-                    <?php 
+                <?php } else { ?>
+                    <?php
                     if ($currentPage === 'registerForm') { ?>
                         <a class="menu-active" href="index.php?action=registerForm">
                             Inscription
                         </a>
                     <?php } else { ?>
-                        <a class="<?= ($currentPage === 'loginForm') ? 'menu-active' : '' ?>" href="index.php?action=loginForm">
+                        <a
+                            class="<?= ($currentPage === 'loginForm') ? 'menu-active' : '' ?>"
+                            href="index.php?action=loginForm"
+                        >
                             Connexion
                         </a>
                     <?php } ?>

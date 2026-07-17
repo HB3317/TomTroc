@@ -1,4 +1,5 @@
 <?php
+
 class UserController
 {
     public function loginForm(): void
@@ -77,11 +78,12 @@ class UserController
         $userId = $userManager->createUser($nickname, $email, $passwordHash);
         $messageManager = new MessageManager();
         $messageManager->addMessage(
-            1, 
-            $userId, 
-            "Bienvenue sur TomTroc !", 
-            date('Y-m-d H:i:s'), 
-            0);
+            1,
+            $userId,
+            "Bienvenue sur TomTroc !",
+            date('Y-m-d H:i:s'),
+            0
+        );
         Utils::redirect('loginForm');
     }
 
@@ -98,12 +100,22 @@ class UserController
     public function publicAccount(): void
     {
         $userId = Utils::request('id');
-        if ($userId === null) {
-            throw new Exception("Utilisateur non trouvé.");
+        if ($userId === null || $userId === false || $userId <= 0) {
+            throw new PageNotFoundException("L'utilisateur n'a pas été trouvé.");
         }
-        $data = $this->getUserProfileData((int) $userId);
+        $userManager = new UserManager();
+        $user = $userManager->getUserById((int) $userId);
+        if ($user === null) {
+            throw new PageNotFoundException("L'utilisateur n'a pas été trouvé.");
+        }
+        $bookManager = new BookManager();
+        $userBooks = $bookManager->getBooksByUserId((int) $userId);
         $view = new View("Profil public");
-        $view->render('publicAccount', $data);
+        $view->render('publicAccount', [
+            'user' => $user,
+            'booksOwnedCount' => count($userBooks),
+            'userBooks' => $userBooks,
+        ]);
     }
 
     public function modifyUser(): void
@@ -136,7 +148,7 @@ class UserController
         if ($password !== '') {
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         } else {
-            throw new Exception("Un mot de passe est requis pour modifier l'utilisateur."); 
+            throw new Exception("Un mot de passe est requis pour modifier l'utilisateur.");
         }
         $userManager->updateUser($userId, $nickname, $email, $passwordHash);
         Utils::redirect('myAccount');
@@ -150,7 +162,7 @@ class UserController
         }
         $destination = './assets/images/users/' . $_SESSION['user_id'] . '.jpg';
         ImageService::saveUploadedImageAsSquareJpeg($_FILES['userImage']['tmp_name'], $destination, 500);
-        $userManager= new UserManager();
+        $userManager = new UserManager();
         $userManager->updateUserImage($_SESSION['user_id'], $destination);
         Utils::redirect('myAccount');
     }

@@ -1,4 +1,5 @@
 <?php
+
 class UserManager extends AbstractEntityManager
 {
     public function getUserById(int $id): ?User

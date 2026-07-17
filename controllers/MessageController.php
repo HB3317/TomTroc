@@ -1,4 +1,5 @@
 <?php
+
 class MessageController
 {
     public function chat(): void
@@ -15,11 +16,11 @@ class MessageController
         if ($otherUserId !== null) {
             $otherUserId = filter_var($otherUserId, FILTER_VALIDATE_INT);
             if ($otherUserId === false || $otherUserId <= 0) {
-                throw new Exception("Identifiant d'utilisateur invalide.");
+                throw new PageNotFoundException("Identifiant d'utilisateur invalide.");
             }
             $otherUser = $userManager->getUserById($otherUserId);
             if ($otherUser === null) {
-                throw new Exception("L'utilisateur n'existe pas.");
+                throw new PageNotFoundException("L'utilisateur n'existe pas.");
             }
             if ($otherUserId === $currentUserId) {
                 throw new Exception("Vous ne pouvez pas envoyer de messages à vous-même.");
@@ -77,10 +78,10 @@ class MessageController
 
         $messageManager = new MessageManager();
         $messageManager->addMessage(
-            $senderId, 
-            $receiverId, 
-            $content, 
-            $dateTime, 
+            $senderId,
+            $receiverId,
+            $content,
+            $dateTime,
             $isRead
         );
         Utils::redirect('chat', [

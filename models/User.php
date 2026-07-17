@@ -1,4 +1,5 @@
 <?php
+
 class User
 {
     private int $id;
@@ -47,7 +48,7 @@ class User
     {
         return $this->registrationDate;
     }
-    
+
     public function getRegisteredSince(): int
     {
         $registrationDate = new DateTime($this->getRegistrationDate());

@@ -1,4 +1,5 @@
 <?php
+
 class MessageManager extends AbstractEntityManager
 {
     public function addMessage(int $senderId, int $receiverId, string $content, string $dateTime, int $isRead): void
@@ -35,7 +36,7 @@ class MessageManager extends AbstractEntityManager
                 ORDER BY date_time ASC
         ";
         $result = $this->db->query($sql, [
-            'currentUserId' => $currentUserId, 
+            'currentUserId' => $currentUserId,
             'otherUserId' => $otherUserId,
         ]);
         $messages = [];

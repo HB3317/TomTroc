@@ -1,4 +1,5 @@
 <?php
+
 class ConversationManager extends AbstractEntityManager
 {
     public function getConversationList(int $currentUserId): array
@@ -27,10 +28,10 @@ class ConversationManager extends AbstractEntityManager
             $otherUserId = $message['otherUserId'];
             if (!isset($conversations[$otherUserId])) {
                 $conversations[$otherUserId] = new Conversation(
-                    $otherUserId, 
-                    $message['otherUserNickname'], 
-                    $message['otherUserImage'], 
-                    $lastMessage, 
+                    $otherUserId,
+                    $message['otherUserNickname'],
+                    $message['otherUserImage'],
+                    $lastMessage,
                     $this->getConversationUnreadMessageCount($currentUserId, $otherUserId)
                 );
             }
@@ -46,7 +47,7 @@ class ConversationManager extends AbstractEntityManager
                   AND receiver_id = :currentUserId)
         ";
         $this->db->query($sql, [
-            'currentUserId' => $currentUserId, 
+            'currentUserId' => $currentUserId,
             'otherUserId' => $otherUserId,
         ]);
     }
@@ -60,7 +61,7 @@ class ConversationManager extends AbstractEntityManager
                   AND is_read = 0
         ";
         $result = $this->db->query($sql, [
-            'currentUserId' => $currentUserId, 
+            'currentUserId' => $currentUserId,
             'otherUserId' => $otherUserId,
         ]);
         $conversationUnreadMessageCount = $result->fetch();

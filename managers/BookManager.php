@@ -1,4 +1,5 @@
 <?php
+
 class BookManager extends AbstractEntityManager
 {
     public function getBookById(int $id): ?Book
@@ -12,7 +13,7 @@ class BookManager extends AbstractEntityManager
                     ON books.user_id = users.id
                 WHERE books.id = :id
         ";
-        
+
         $result = $this->db->query($sql, [
             'id' => $id,
         ]);
@@ -55,8 +56,14 @@ class BookManager extends AbstractEntityManager
         return $bookId;
     }
 
-    public function updateBook(int $bookId, int $userId, string $title, string $author, string $description, bool $status): void
-    {
+    public function updateBook(
+        int $bookId,
+        int $userId,
+        string $title,
+        string $author,
+        string $description,
+        bool $status
+    ): void {
         $sql = "UPDATE books 
                 SET user_id = :user_id, 
                     title = :title, 

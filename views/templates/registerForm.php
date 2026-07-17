@@ -1,5 +1,5 @@
-<?php 
- 
+<?php
+
 ?>
 
 <div class="registerView">

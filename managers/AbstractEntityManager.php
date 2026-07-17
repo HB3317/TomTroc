@@ -1,4 +1,5 @@
 <?php
+
 abstract class AbstractEntityManager
 {
     protected DBManager $db;

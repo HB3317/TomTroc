@@ -5,14 +5,18 @@ class BookController
     public function bookDetails(): void
     {
         $currentUserId = $_SESSION['user_id'] ?? null;
-        $bookId = Utils::request('id');
-        if ($bookId === null || $bookId === false || $bookId <= 0) {
-            throw new Exception("Le livre n'a pas été trouvé.");
+        $bookId = filter_var(
+            Utils::request('id'),
+            FILTER_VALIDATE_INT,
+            ['options' => ['min_range' => 1]]
+        );
+        if ($bookId === false) {
+            throw new PageNotFoundException("Le livre n'a pas été trouvé.");
         }
         $bookManager = new BookManager();
         $book = $bookManager->getBookById($bookId);
         if ($book === null) {
-            throw new Exception("Le livre n'a pas été trouvé.");
+            throw new PageNotFoundException("Le livre n'a pas été trouvé.");
         }
         $view = new View("Livre");
         $view->render('bookDetails', [
@@ -23,6 +27,9 @@ class BookController
 
     public function addBookForm(): void
     {
+        if (!isset($_SESSION['user_id'])) {
+            throw new Exception("Vous devez être connecté pour ajouter un livre.");
+        }
         $view = new View("Nouveau livre");
         $view->render('bookForm');
     }
@@ -57,49 +64,63 @@ class BookController
 
     public function editBookForm(): void
     {
-        $view = new View("Modifier livre");
-        $bookId = Utils::request('id');
-        if ($bookId === null || $bookId === false || $bookId <= 0) {
-            throw new Exception("Livre introuvable.");
+        if (!isset($_SESSION['user_id'])) {
+            throw new Exception("Vous devez être connecté pour modifier un livre.");
+        }
+        $bookId = filter_var(
+            Utils::request('id'),
+            FILTER_VALIDATE_INT,
+            ['options' => ['min_range' => 1]]
+        );
+        if ($bookId === false) {
+            throw new PageNotFoundException("Le livre n'a pas été trouvé.");
         }
         $bookManager = new BookManager();
         $book = $bookManager->getBookById($bookId);
         if ($book === null) {
-            throw new Exception("Le livre n'a pas été trouvé.");
+            throw new PageNotFoundException("Le livre n'a pas été trouvé.");
         }
         if ($book->getUserId() !== $_SESSION['user_id']) {
             throw new Exception("Vous ne pouvez pas modifier ce livre.");
         }
+        $view = new View("Modifier livre");
         $view->render('bookForm', [
             'book' => $book
         ]);
     }
 
     public function editBook(): void
-    {   
-        $bookId = Utils::request('id');
+    {
+        $userId = $_SESSION['user_id'] ?? null;
+        if ($userId === null) {
+            throw new Exception("Vous devez être connecté pour modifier un livre.");
+        }
+        $bookId = filter_var(
+            Utils::request('id'),
+            FILTER_VALIDATE_INT,
+            ['options' => ['min_range' => 1]]
+        );
+        if ($bookId === false) {
+            throw new PageNotFoundException("Le livre n'a pas été trouvé.");
+        }
         $title = Utils::request('title');
         $author = Utils::request('author');
         $description = Utils::request('description');
         $status = Utils::request('status') === '1';
-        $userId = $_SESSION['user_id'];
-        if ($bookId === null || $bookId === false || $bookId <= 0) {
-            throw new Exception("Le livre n'a pas été trouvé.");
-        }
         $bookManager = new BookManager();
         $book = $bookManager->getBookById($bookId);
         if ($book === null) {
-            throw new Exception("Le livre n'a pas été trouvé.");
+            throw new PageNotFoundException("Le livre n'a pas été trouvé.");
         }
         if ($book->getUserId() !== $_SESSION['user_id']) {
             throw new Exception("Vous ne pouvez pas modifier ce livre.");
         }
         $bookManager->updateBook(
-            $bookId, 
-            $userId, 
-            $title, 
-            $author, 
-            $description, 
+            $bookId,
+            $userId,
+            $title,
+            $author,
+            $description,
             $status,
         );
         if (isset($_FILES['bookImage']) && $_FILES['bookImage']['error'] === UPLOAD_ERR_OK) {
@@ -113,14 +134,22 @@ class BookController
 
     public function deleteBook(): void
     {
-        $bookId = Utils::request('id');
-        if ($bookId === null || $bookId === false || $bookId <= 0) {
-            throw new Exception("Le livre n'a pas été trouvé.");
+        $userId = $_SESSION['user_id'] ?? null;
+        if ($userId === null) {
+            throw new Exception("Vous devez être connecté pour supprimer un livre.");
+        }
+        $bookId = filter_var(
+            Utils::request('id'),
+            FILTER_VALIDATE_INT,
+            ['options' => ['min_range' => 1]]
+        );
+        if ($bookId === false) {
+            throw new PageNotFoundException("Le livre n'a pas été trouvé.");
         }
         $bookManager = new BookManager();
         $book = $bookManager->getBookById($bookId);
         if ($book === null) {
-            throw new Exception("Le livre n'a pas été trouvé.");
+            throw new PageNotFoundException("Le livre n'a pas été trouvé.");
         }
         if ($book->getUserId() !== $_SESSION['user_id']) {
             throw new Exception("Vous ne pouvez pas supprimer ce livre.");

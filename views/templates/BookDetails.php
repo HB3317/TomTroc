@@ -6,7 +6,10 @@
     </nav>
     <div class="book-details-content">
         <div class="book-image">
-            <img src="<?= htmlspecialchars($book->getImage()); ?>" alt="Couverture de <?= htmlspecialchars($book->getTitle()); ?>">
+            <img
+                src="<?= htmlspecialchars($book->getImage()); ?>"
+                alt="Couverture de <?= htmlspecialchars($book->getTitle()); ?>"
+            >
         </div>
         <div class="book-info">
             <div class="title-and-author">
@@ -22,21 +25,32 @@
             </div>
             <div class="owner">
                 <h2>PROPRIÉTAIRE</h2>
-                <?php 
-                if ($book->getUserId() === $currentUserId): ?>
+                <?php
+                if ($book->getUserId() === $currentUserId) : ?>
                     <a class="owner-account" href="index.php?action=myAccount">
-                        <img src="<?= htmlspecialchars($book->getUserImage()); ?>" alt="Photo de <?= htmlspecialchars($book->getUserNickname()); ?>">
+                        <img
+                            src="<?= htmlspecialchars($book->getUserImage()); ?>"
+                            alt="Photo de <?= htmlspecialchars($book->getUserNickname()); ?>"
+                        >
                         <p><?= htmlspecialchars($book->getUserNickname()); ?></p>
                     </a>
-                <?php else: ?>
+                <?php else : ?>
                     <a class="owner-account" href="index.php?action=publicAccount&id=<?= (int) $book->getUserId(); ?>">
-                        <img src="<?= htmlspecialchars($book->getUserImage()); ?>" alt="Photo de <?= htmlspecialchars($book->getUserNickname()); ?>">
+                        <img
+                            src="<?= htmlspecialchars($book->getUserImage()); ?>"
+                            alt="Photo de <?= htmlspecialchars($book->getUserNickname()); ?>"
+                        >
                         <p><?= htmlspecialchars($book->getUserNickname()); ?></p>
                     </a>
                 <?php endif; ?>
             </div>
-            <?php if ($book->getUserId() !== $currentUserId): ?>
-                <a href="index.php?action=chat&user=<?= (int) $book->getUserId(); ?>" class="primary-btn">Envoyer un message</a>
+            <?php if ($book->getUserId() !== $currentUserId) : ?>
+                <a
+                    href="index.php?action=chat&user=<?= (int) $book->getUserId(); ?>"
+                    class="primary-btn"
+                >
+                Envoyer un message
+                </a>
             <?php endif; ?>
         </div>
     </div>

@@ -1,14 +1,15 @@
 <?php
-class View 
+
+class View
 {
     private string $title;
-    
-    public function __construct(string $title) 
+
+    public function __construct(string $title)
     {
         $this->title = $title;
     }
-    
-    public function render(string $viewName, array $params = []): void 
+
+    public function render(string $viewName, array $params = []): void
     {
         $viewPath = $this->buildViewPath($viewName);
         $content = $this->renderViewFromTemplate($viewPath, $params);
@@ -24,9 +25,9 @@ class View
     }
 
     private function renderViewFromTemplate(string $viewPath, array $params = []): string
-    {  
+    {
         if (file_exists($viewPath)) {
-            extract($params); 
+            extract($params);
             ob_start();
             require $viewPath;
             return ob_get_clean();

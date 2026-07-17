@@ -1,7 +1,11 @@
 <div class="public-account"> 
     <div class="infos">
         <div class="image-info">
-            <img class = "user-image" src="<?= htmlspecialchars($user->getImage()); ?>" alt="Photo de <?= htmlspecialchars($user->getNickname()); ?>">
+            <img
+                class = "user-image"
+                src="<?= htmlspecialchars($user->getImage()); ?>"
+                alt="Photo de <?= htmlspecialchars($user->getNickname()); ?>"
+            >
         </div>
         <hr class="separator">
         <div class="text-info">
@@ -29,7 +33,13 @@
             <tbody>
                 <?php foreach ($userBooks as $book) { ?>
                     <tr>
-                        <td><img class="book-list-image" src="<?= htmlspecialchars($book->getImage()); ?>" alt="Couverture de <?= htmlspecialchars($book->getTitle()); ?>"></td>
+                        <td>
+                            <img
+                                class="book-list-image"
+                                src="<?= htmlspecialchars($book->getImage()); ?>"
+                                alt="Couverture de <?= htmlspecialchars($book->getTitle()); ?>"
+                            >
+                        </td>
                         <td><?= htmlspecialchars($book->getTitle()); ?></td>
                         <td><?= htmlspecialchars($book->getAuthor()); ?></td>
                         <td><?= htmlspecialchars(mb_strimwidth($book->getDescription(), 0, 70, '...')); ?></td>

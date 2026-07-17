@@ -1,5 +1,6 @@
 <?php
-class Utils 
+
+class Utils
 {
     public static function redirect(string $action, array $params = []): void
     {
@@ -21,7 +22,7 @@ class Utils
                 $finalString .= "<p>$line</p>";
             }
         }
-        
+
         return $finalString;
     }
 
@@ -29,6 +30,4 @@ class Utils
     {
         return $_REQUEST[$variableName] ?? $defaultValue;
     }
-
 }
-
