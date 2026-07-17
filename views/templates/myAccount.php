@@ -67,9 +67,10 @@
                 <button type="button" class="close-modal">X</button>
             </div>
             <form class="modal-form" action="index.php?action=changeUserImage" method="post" enctype="multipart/form-data">
-                <input class="input-file" type="file" name="userImage" accept=".jpg,.jpeg,.png" required>
+                <label for="userImage" class="visually-hidden">Choisissez une nouvelle photo de profil :</label>
+                <input class="input-file" type="file" name="userImage" id="userImage" accept=".jpg,.jpeg,.png" required>
                 <div class="modal-buttons">
-                    <button class="modal-save-btn" type="submit" class="save-btn">Enregistrer</button>
+                    <button class="modal-save-btn" type="submit" >Enregistrer</button>
                 </div>
             </form>
         </div>

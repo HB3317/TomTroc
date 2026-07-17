@@ -1,4 +1,4 @@
-.chat{
+.chat {
     background-color: var(--background-color);
     display: flex;
     flex-direction: row;
@@ -103,6 +103,7 @@ h1 {
     font-size: 12px;
     border-radius: 3px;
 }
+
 .message:first-child {
     margin-top: auto;
 }
@@ -189,4 +190,9 @@ button {
     color: var(--main-text-color);
     font-size: 12px;
     font-weight: 900;
+}
+
+.visually-hidden {
+    position: absolute;
+    left: -9999px;
 }

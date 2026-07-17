@@ -91,12 +91,12 @@
 
 .infos,
 .edit-user-form,
-.books-list{
+.books-list {
     flex: 1;
     background-color: var(--highlight-color);
 }
 
-.books-list{
+.books-list {
     border-radius: 18px;
     margin-left: 10vw;
     margin-right: 10vw;
@@ -180,6 +180,7 @@ label {
     font-weight: 600;
     cursor: pointer;
 }
+
 .primary-btn:hover {
     background-color: var(--primary-color);
     color: var(--highlight-color);
@@ -191,6 +192,7 @@ label {
     text-decoration: underline;
     cursor: pointer;
 }
+
 .book-form-image {
     width: 78px;
     height: 78px;
@@ -236,4 +238,9 @@ label {
 
 .delete-book-btn {
     color: var(--delete-color);
+}
+
+.visually-hidden {
+    position: absolute;
+    left: -9999px;
 }

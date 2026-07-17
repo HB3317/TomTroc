@@ -13,13 +13,13 @@ class Book
 
     public function __construct(array $data)
     {
-        $this->id = isset($data['id']) ? (int)$data['id'] : -1;
-        $this->userId = (int)$data['user_id'];
+        $this->id = isset($data['id']) ? (int) $data['id'] : -1;
+        $this->userId = (int) $data['user_id'];
         $this->title = $data['title'];
         $this->author = $data['author'];
         $this->image = $data['image'] ?? './assets/images/books/default_book_image.jpg';
         $this->description = $data['description'];
-        $this->status = (bool)$data['status'];
+        $this->status = (bool) $data['status'];
         $this->userNickname = $data['userNickname'] ?? null;
         $this->userImage = $data['userImage'] ?? './assets/images/users/default_user_image.jpg';
     }

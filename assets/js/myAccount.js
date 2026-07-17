@@ -1,6 +1,6 @@
 deleteConfirmation(
-    '.delete-book-btn',
-    'Voulez-vous vraiment supprimer ce livre ?'
+    ".delete-book-btn",
+    "Voulez-vous vraiment supprimer ce livre ?"
 );
 
 const openButton = document.querySelector(".change-image-btn");
@@ -14,14 +14,14 @@ if (openButton && modal && closeButton) {
     closeButton.addEventListener("click", () => {
         modal.classList.add("hidden");
     });
+    modal.addEventListener("click", (event) => {
+        if (event.target === event.currentTarget) {
+            modal.classList.add("hidden");
+        }
+    });
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            modal.classList.add("hidden");
+        }
+    });
 }
-modal.addEventListener("click", (event) => {
-    if (event.target === event.currentTarget) {
-        modal.classList.add("hidden");
-    }
-});
-document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-        modal.classList.add("hidden");
-    }
-});

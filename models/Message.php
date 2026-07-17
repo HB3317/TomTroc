@@ -10,12 +10,12 @@ class Message
 
     public function __construct(array $data)
     {
-        $this->id = (int)$data['id'];
-        $this->senderId = (int)$data['sender_id'];
-        $this->receiverId = (int)$data['receiver_id'];
+        $this->id = (int) $data['id'];
+        $this->senderId = (int) $data['sender_id'];
+        $this->receiverId = (int) $data['receiver_id'];
         $this->content = $data['content'];
         $this->dateTime = $data['date_time'];
-        $this->isRead = (int)$data['is_read'];
+        $this->isRead = (int) $data['is_read'];
     }
 
     public function getId(): int
@@ -45,7 +45,7 @@ class Message
 
     public function getIsRead(): bool
     {
-        return (bool)$this->isRead;
+        return (bool) $this->isRead;
     }
 
     public function getMessageDate(): string
@@ -66,7 +66,7 @@ class Message
                 'Thu' => 'jeu',
                 'Fri' => 'ven',
                 'Sat' => 'sam',
-                'Sun' => 'dim'
+                'Sun' => 'dim',
             ];
             $day = $days[date('D', $timestamp)];
             return $day . ' ' . date('H:i', $timestamp);

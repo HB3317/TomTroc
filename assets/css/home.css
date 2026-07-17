@@ -1,4 +1,4 @@
-.home-content{
+.home-content {
     background-color: var(--background-color);
 }
 
@@ -33,10 +33,11 @@ h1 {
     align-items: flex-end;
 }
 
-.join-us-image img{
+.join-us-image img {
     margin-left: 5vh;
     max-width: 70vh;
 }
+
 .join-us-image p {
     font-size: 12px;
     font-weight: 400;

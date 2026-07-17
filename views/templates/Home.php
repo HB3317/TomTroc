@@ -6,7 +6,7 @@
             <a href="index.php?action=books" class="primary-btn">Découvrir</a>
         </div>
         <div class="join-us-image">
-            <img src="./assets/images/pages/home/home1.jpg" alt="Image">
+            <img src="./assets/images/pages/home/home1.jpg" alt="Image de livres">
             <p>Hamza</p>
         </div>
     </div>
@@ -15,7 +15,7 @@
         <div class="books-grid">
             <?php foreach ($books as $book) : ?>
                 <a href="index.php?action=bookDetails&id=<?= $book->getId(); ?>" class="book-card">
-                    <img src="<?= htmlspecialchars($book->getImage()); ?>" alt="Image du livre">
+                    <img src="<?= htmlspecialchars($book->getImage()); ?>" alt="Image de <?= htmlspecialchars($book->getTitle()); ?>">
                     <p class="book-title"><?= htmlspecialchars($book->getTitle()); ?></p>
                     <p class="book-author"><?= htmlspecialchars($book->getAuthor()); ?></p>
                     <p class="book-owner">Vendu par : <?= htmlspecialchars($book->getUserNickname()); ?></p>
@@ -35,7 +35,7 @@
         </div>
         <a href="index.php?action=books" class="secondary-btn">Voir tous les livres</a>
     </div>
-    <img class="banner" src="./assets/images/pages/home/home2.jpg" alt="Image">
+    <img class="banner" src="./assets/images/pages/home/home2.jpg" alt="Bannière">
     <div class="our-values">
         <h1>Nos valeurs</h1>
         <p>Chez Tom Troc, nous mettons l'accent sur le partage, la découverte et la communauté. Nos valeurs sont ancrées dans notre passion pour les livres et notre désir de créer des liens entre les lecteurs. Nous croyons en la puissance des histoires pour rassembler les gens et inspirer des conversations enrichissantes.<br><br>

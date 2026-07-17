@@ -6,8 +6,8 @@ class BookController
     {
         $currentUserId = $_SESSION['user_id'] ?? null;
         $bookId = Utils::request('id');
-        if ($bookId === null){
-            throw new Exception ("Aucun identifiant de livre fourni.");
+        if ($bookId === null || $bookId === false || $bookId <= 0) {
+            throw new Exception("Le livre n'a pas été trouvé.");
         }
         $bookManager = new BookManager();
         $book = $bookManager->getBookById($bookId);
@@ -15,7 +15,7 @@ class BookController
             throw new Exception("Le livre n'a pas été trouvé.");
         }
         $view = new View("Livre");
-        $view->render('bookDetails' , [
+        $view->render('bookDetails', [
             'book' => $book,
             'currentUserId' => $currentUserId,
         ]);
@@ -33,14 +33,19 @@ class BookController
         $author = Utils::request('author');
         $description = Utils::request('description');
         $userId = $_SESSION['user_id'] ?? null;
-        $status = Utils::request('status') === '1' ? true : false;
+        $status = Utils::request('status') === '1';
         if ($userId === null) {
             throw new Exception("Vous devez être connecté pour ajouter un livre.");
         }
-        $book = new Book(['user_id' => $userId,'title' => $title,'author' => $author,'description' => $description,'status' => $status]);
+        $book = new Book([
+            'user_id' => $userId,
+            'title' => $title,
+            'author' => $author,
+            'description' => $description,
+            'status' => $status,
+        ]);
         $bookManager = new BookManager();
         $bookId = $bookManager->addBook($book);
-        // Gestion de l'image
         if (isset($_FILES['bookImage']) && $_FILES['bookImage']['error'] === UPLOAD_ERR_OK) {
             $tmpPath = $_FILES['bookImage']['tmp_name'];
             $destination = './assets/images/books/' . $bookId . '.jpg';
@@ -54,6 +59,9 @@ class BookController
     {
         $view = new View("Modifier livre");
         $bookId = Utils::request('id');
+        if ($bookId === null || $bookId === false || $bookId <= 0) {
+            throw new Exception("Livre introuvable.");
+        }
         $bookManager = new BookManager();
         $book = $bookManager->getBookById($bookId);
         if ($book === null) {
@@ -62,7 +70,7 @@ class BookController
         if ($book->getUserId() !== $_SESSION['user_id']) {
             throw new Exception("Vous ne pouvez pas modifier ce livre.");
         }
-        $view->render('bookForm' , [
+        $view->render('bookForm', [
             'book' => $book
         ]);
     }
@@ -73,8 +81,11 @@ class BookController
         $title = Utils::request('title');
         $author = Utils::request('author');
         $description = Utils::request('description');
-        $status = Utils::request('status') === '1' ? true : false;
+        $status = Utils::request('status') === '1';
         $userId = $_SESSION['user_id'];
+        if ($bookId === null || $bookId === false || $bookId <= 0) {
+            throw new Exception("Le livre n'a pas été trouvé.");
+        }
         $bookManager = new BookManager();
         $book = $bookManager->getBookById($bookId);
         if ($book === null) {
@@ -83,9 +94,14 @@ class BookController
         if ($book->getUserId() !== $_SESSION['user_id']) {
             throw new Exception("Vous ne pouvez pas modifier ce livre.");
         }
-        $bookManager->updateBook($bookId, $userId, $title, $author, $description, $status);
-
-        // Gestion de l'image
+        $bookManager->updateBook(
+            $bookId, 
+            $userId, 
+            $title, 
+            $author, 
+            $description, 
+            $status,
+        );
         if (isset($_FILES['bookImage']) && $_FILES['bookImage']['error'] === UPLOAD_ERR_OK) {
             $tmpPath = $_FILES['bookImage']['tmp_name'];
             $destination = './assets/images/books/' . $book->getId() . '.jpg';
@@ -98,13 +114,13 @@ class BookController
     public function deleteBook(): void
     {
         $bookId = Utils::request('id');
-        if ($bookId === null){
-            throw new Exception ("Aucun identifiant de livre fourni.");
+        if ($bookId === null || $bookId === false || $bookId <= 0) {
+            throw new Exception("Le livre n'a pas été trouvé.");
         }
         $bookManager = new BookManager();
         $book = $bookManager->getBookById($bookId);
-        if ($book === null){
-            throw new Exception ("Le livre n'a pas été trouvé.");
+        if ($book === null) {
+            throw new Exception("Le livre n'a pas été trouvé.");
         }
         if ($book->getUserId() !== $_SESSION['user_id']) {
             throw new Exception("Vous ne pouvez pas supprimer ce livre.");
@@ -119,8 +135,8 @@ class BookController
         $books = $bookManager->getLatestBooks();
         $view = new View("Accueil");
         $view->render('home', [
-            'books' => $books ,
-            'currentPage' => 'home'
+            'books' => $books,
+            'currentPage' => 'home',
         ]);
     }
 
@@ -137,7 +153,7 @@ class BookController
         $view->render('books', [
             'books' => $books,
             'search' => $search,
-            'currentPage' => 'books'
+            'currentPage' => 'books',
         ]);
     }
 }

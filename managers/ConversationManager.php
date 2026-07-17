@@ -16,8 +16,11 @@ class ConversationManager extends AbstractEntityManager
                     END
                 WHERE messages.sender_id = :currentUserId
                     OR messages.receiver_id = :currentUserId
-                ORDER BY messages.date_time DESC";
-        $result = $this->db->query($sql, ['currentUserId' => $currentUserId]);
+                ORDER BY messages.date_time DESC
+        ";
+        $result = $this->db->query($sql, [
+            'currentUserId' => $currentUserId,
+        ]);
         $conversations = [];
         while ($message = $result->fetch()) {
             $lastMessage = new Message($message);
@@ -39,8 +42,13 @@ class ConversationManager extends AbstractEntityManager
     {
         $sql = "UPDATE messages 
                 SET is_read = 1 
-                WHERE (sender_id = :otherUserId AND receiver_id = :currentUserId)";
-        $this->db->query($sql, ['currentUserId' => $currentUserId, 'otherUserId' => $otherUserId]);
+                WHERE (sender_id = :otherUserId 
+                  AND receiver_id = :currentUserId)
+        ";
+        $this->db->query($sql, [
+            'currentUserId' => $currentUserId, 
+            'otherUserId' => $otherUserId,
+        ]);
     }
 
     public function getConversationUnreadMessageCount(int $currentUserId, int $otherUserId): int
@@ -49,9 +57,13 @@ class ConversationManager extends AbstractEntityManager
                 FROM messages 
                 WHERE sender_id = :otherUserId 
                   AND receiver_id = :currentUserId 
-                  AND is_read = 0";
-        $result = $this->db->query($sql, ['currentUserId' => $currentUserId, 'otherUserId' => $otherUserId]);
+                  AND is_read = 0
+        ";
+        $result = $this->db->query($sql, [
+            'currentUserId' => $currentUserId, 
+            'otherUserId' => $otherUserId,
+        ]);
         $conversationUnreadMessageCount = $result->fetch();
-        return (int)$conversationUnreadMessageCount['unread_count'];
+        return (int) $conversationUnreadMessageCount['unread_count'];
     }
 }

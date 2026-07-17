@@ -48,8 +48,9 @@
             <?php endforeach; ?>
         </div>
         <form class="send-message-form" action="index.php?action=sendMessage" method="post">
+            <label for="content" class="visually-hidden">Tapez votre message ici</label>
             <input type="hidden" name="receiver_id" value="<?= $otherUser->getId() ?>">
-            <textarea name="content" placeholder="Tapez votre message ici" required></textarea>
+            <textarea name="content" id="content" placeholder="Tapez votre message ici" required></textarea>
             <button type="submit">Envoyer</button>
         </form>
     </div>

@@ -2,8 +2,9 @@
     <div class="title-and-search">
         <h1>Nos livres à l'échange </h1>
         <form action="index.php" method="GET" class="search-bar">
+            <label for="search" class="visually-hidden">Rechercher un livre</label>
             <input type="hidden" name="action" value="books">
-            <img src="./assets/icons/search.svg" alt="" class="search-icon">
+            <img src="./assets/icons/search.svg" alt="Rechercher" class="search-icon">
             <input type="search" name="search" id="search" placeholder="Rechercher un livre" value="<?= htmlspecialchars($search ?? '') ?>">
         </form>
     </div>

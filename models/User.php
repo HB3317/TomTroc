@@ -10,7 +10,7 @@ class User
 
     public function __construct(array $data)
     {
-        $this->id = (int)$data['id'];
+        $this->id = (int) $data['id'];
         $this->nickname = $data['nickname'];
         $this->email = $data['email'];
         $this->passwordHash = $data['password_hash'];
@@ -52,7 +52,7 @@ class User
     {
         $registrationDate = new DateTime($this->getRegistrationDate());
         $today = new DateTime();
-        $registeredSince =  $today ->diff($registrationDate);
+        $registeredSince = $today->diff($registrationDate);
         return $registeredSince->y;
     }
 }

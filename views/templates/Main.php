@@ -49,13 +49,13 @@
                 <?php } 
                 else { ?>
                     <?php 
-                    if ($currentPage === 'loginForm') { ?>
-                        <a class="menu-active" href="index.php?action=loginForm">
-                            Connexion
+                    if ($currentPage === 'registerForm') { ?>
+                        <a class="menu-active" href="index.php?action=registerForm">
+                            Inscription
                         </a>
                     <?php } else { ?>
-                        <a class="<?= ($currentPage === 'registerForm') ? 'menu-active' : '' ?>" href="index.php?action=registerForm">
-                            Inscription
+                        <a class="<?= ($currentPage === 'loginForm') ? 'menu-active' : '' ?>" href="index.php?action=loginForm">
+                            Connexion
                         </a>
                     <?php } ?>
                 <?php } ?>
@@ -74,7 +74,7 @@
             <a href="#">Mentions légales</a>
             <a href="#">Tom Troc©</a>
             <a href="#">
-                <img src="./assets/images/logo/logo2.svg" alt="Accueil">
+                <img src="./assets/images/logo/logo2.svg" alt="Retour à l'accueil">
             </a>
         </nav>
     </footer>

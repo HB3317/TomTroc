@@ -5,7 +5,7 @@
         </div>
         <hr class="separator">
         <div class="text-info">
-            <h2><?= htmlspecialchars($user->getNickname()); ?></h2>
+            <h1><?= htmlspecialchars($user->getNickname()); ?></h1>
             <p class="member-since">Membre depuis  <?= $user->getRegisteredSince(); ?> an(s)</p>
             <p class="library-title">BIBLIOTHÈQUE</p>
             <div class="library-info">

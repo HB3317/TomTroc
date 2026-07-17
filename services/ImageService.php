@@ -2,7 +2,11 @@
 
 class ImageService
 {
-    public static function saveUploadedImageAsSquareJpeg(string $tmpPath,string $destination,int $size): void
+    public static function saveUploadedImageAsSquareJpeg(
+        string $tmpPath,
+        string $destination,
+        int $size
+    ): void
     {
         $mimeType = self::getImageMimeType($tmpPath);
         $image = self::createImageFromMimeType($tmpPath, $mimeType);
@@ -37,8 +41,8 @@ class ImageService
                 throw new Exception("Le type MIME de l'image n'est pas supporté.");
         }
         if (!$image) {
-        throw new Exception("Impossible de lire l'image.");
-    }
+            throw new Exception("Impossible de lire l'image.");
+        }
         return $image;
     }
 
@@ -47,8 +51,8 @@ class ImageService
         $width = imagesx($image);
         $height = imagesy($image);
         $minDimension = min($width, $height);
-        $srcX = (int)(($width - $minDimension) / 2);
-        $srcY = (int)(($height - $minDimension) / 2);
+        $srcX = (int) (($width - $minDimension) / 2);
+        $srcY = (int) (($height - $minDimension) / 2);
         $squareImage = imagecreatetruecolor($size, $size);
         imagecopyresampled($squareImage, $image, 0, 0, $srcX, $srcY, $size, $size, $minDimension, $minDimension);
         return $squareImage;
